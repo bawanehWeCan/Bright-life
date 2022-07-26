@@ -17,6 +17,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
+        timeout_minutes : 1
+        max_attempts : 3
         server: ftp.brightlifeapp.com
         username: alaa@brightlifeapp.com
         password: 1038138_asd

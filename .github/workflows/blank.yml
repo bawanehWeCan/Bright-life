@@ -22,5 +22,4 @@ jobs:
         server: ftp.brightlifeapp.com
         username: alaa@brightlifeapp.com
         password: 1038138_asd
-        protocol: ftps
-        port: 21
+

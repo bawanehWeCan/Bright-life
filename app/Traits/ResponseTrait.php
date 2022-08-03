@@ -71,7 +71,7 @@ trait ResponseTrait
             'status' => false,
             'errNum' => $code,
             'msg' => __('Please check the following errors'),
-        ], $this->invalid);
+        ], $code);
     }
 
     public function returnCodeAccordingToInput($validator)

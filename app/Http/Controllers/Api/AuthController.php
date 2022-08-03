@@ -181,9 +181,11 @@ class AuthController extends Controller
                 'email',
                 'image',
                 'phone',
-                'last_name',
+                
             ])
         );
+        $user->lname = $request->last_name;
+        $user->save();
 
 
         return $this->returnData( 'user', UserResource::make(Auth::user()), 'successful');

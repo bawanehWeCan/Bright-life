@@ -5,101 +5,103 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleChangeRequest;
 use App\Http\Requests\UserRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Resources\UserResource;
+use App\Repositorys\UserRepository;
+use App\Traits\ResponseTrait;
 
 class UserController extends Controller
 {
-    public function list(Request $request)
+
+    use ResponseTrait;
+
+    /**
+     * @var UserRepository
+     */
+    protected UserRepository $userRepositry;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(UserRepository $userRepositry)
     {
-        return response([
-                'users' => User::all(),
-                'success' => 1,
-            ]);
+        $this->userRepositry =  $userRepositry;
     }
 
+    /**
+     * list function
+     *
+     * @return void
+     */
+    public function list()
+    {
+        $users = $this->userRepositry->allUsers();
+        return $this->returnData('users', UserResource::collection($users), __('Succesfully'));
+    }
 
+    /**
+     * store function
+     *
+     * @param UserRequest $request
+     * @return void
+     */
     public function store(UserRequest $request)
     {
-        // store user information
-        $user = User::create([
-                    'name' => $request->name,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                ]);
-
-        // assign new role to the user
-        $role = $user->assignRole($request->role);
+        $user = $this->userRepositry->saveUser($request);
 
         if ($user) {
-            return response([
-                'message' => 'User created succesfully!',
-                'user' => $user,
-                'success' => 1,
-            ]);
+            return $this->returnData('user', UserResource::make($user), __('User created succesfully'));
         }
 
-        return response([
-                'message' => 'Sorry! Failed to create user!',
-                'success' => 0,
-            ]);
+        return $this->returnError(__('Sorry! Failed to create user!'));
     }
 
-    public function profile($id, Request $request)
+    /**
+     * profile function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function profile($id)
     {
-        $user = User::find($id);
+        $user = $this->userRepositry->getUserByID($id);
+
         if ($user) {
-            return response([
-                'user' => $user,
-                'success' => 1,
-            ]);
-        } else {
-            return response([
-                'message' => 'Sorry! Not found!',
-                'success' => 0,
-            ]);
+            return $this->returnData('user', UserResource::make($user), __('Get User succesfully'));
         }
+
+        return $this->returnError(__('Sorry! Failed to get user!'));
     }
 
-
-    public function delete($id, Request $request)
+    /**
+     * delete function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function delete($id)
     {
-        $user = User::find($id);
+        $this->userRepositry->deleteUser($id);
 
-        if ($user) {
-            $user->delete();
-
-            return response([
-                'message' => 'User has been deleted',
-                'success' => 1,
-            ]);
-        } else {
-            return response([
-                'message' => 'Sorry! Not found!',
-                'success' => 0,
-            ]);
-        }
+        return $this->returnSuccessMessage(__('Delete User succesfully!'));
     }
 
-
+    /**
+     * changeRole function
+     *
+     * @param [type] $id
+     * @param RoleChangeRequest $request
+     * @return void
+     */
     public function changeRole($id, RoleChangeRequest $request)
     {
-        // update user roles
-        $user = User::find($id);
-        if ($user) {
-            // assign role to user
-            $user->syncRoles($request->roles);
+        $user = $this->userRepositry->asignRoleToUser($id, $request->roles);
 
-            return response([
-                'message' => 'Roles changed successfully!',
-                'success' => 1,
-            ]);
+        if ($user) {
+            return $this->returnSuccessMessage(__('Roles changed successfully!'));
         }
 
-        return response([
-                'message' => 'Sorry! User not found',
-                'success' => 0,
-            ]);
+        return $this->returnError(__('Sorry! User not found'));
     }
 }

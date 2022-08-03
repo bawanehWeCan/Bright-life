@@ -69,7 +69,7 @@ trait ResponseTrait
 
         return response()->json([
             'status' => false,
-            'errNum' => $code,
+            'code' => $this->returnCodeAccordingToInput($validator),
             'msg' => __('Please check the following errors'),
         ], $code);
     }

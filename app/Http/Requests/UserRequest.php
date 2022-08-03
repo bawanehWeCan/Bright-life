@@ -42,7 +42,7 @@ class UserRequest extends FormRequest
 
         throw new HttpResponseException(
             
-            $this->returnValidationError($validator,422)
+            $this->returnValidationError($validator)
         );
     }
 }

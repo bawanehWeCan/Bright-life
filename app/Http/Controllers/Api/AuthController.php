@@ -184,7 +184,9 @@ class AuthController extends Controller
                 
             ])
         );
-        $user->lname = $request->last_name;
+        if( !empty( $request->last_name ) ){
+            $user->lname = $request->last_name;
+        }
         $user->save();
 
 

@@ -50,7 +50,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'code' => 500,
-                'msg' => __('Invalid credentials!'),
+                'msg' => __('Invalid Email or password!'),
             ], 500);
         }
 

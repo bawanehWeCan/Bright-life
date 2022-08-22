@@ -25,6 +25,20 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::post('/user-reg', [AuthController::class, 'store']);
 
+Route::post('/otb-check', [AuthController::class, 'check']);
+
+Route::post('/password-otb', [AuthController::class, 'password']);
+
+Route::post('change-password', [AuthController::class, 'changePassword']);
+
+
+Route::get('countries', function()
+{
+	return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 
+	'countries' =>Json::decode(Countries::getList('en', 'json'))]);
+
+});
+
 //supp
 Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
 Route::get('/suppliers', [AuthController::class, 'list']);

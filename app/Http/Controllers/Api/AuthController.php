@@ -66,7 +66,8 @@ class AuthController extends Controller
         }
     }
 
-    public function countries(){
+    public function countries()
+    {
         return $this->returnData('countries', Countries::getList('en', 'json'), 'succesfully');
     }
 
@@ -203,8 +204,9 @@ class AuthController extends Controller
 
     public function password(Request $request)
     {
-        $user = User::where( 'phone',$request->phone )->first();
+        $user = User::where('phone', $request->phone)->first();
         if ($user) {
+            
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
@@ -216,9 +218,9 @@ class AuthController extends Controller
                 CURLOPT_FOLLOWLOCATION => true,
                 CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
                 CURLOPT_CUSTOMREQUEST => "POST",
-                CURLOPT_POSTFIELDS => "sender=We Can&mobile=" . $request->phone . "&channel=sms",
+                CURLOPT_POSTFIELDS => "sender=Bright Life&mobile=" . $request->phone . "&channel=sms",
                 CURLOPT_HTTPHEADER => array(
-                    "Authorization: Bearer 48e9d03083973825dc3a697ee09f7f39"
+                    "Authorization: Bearer 54531079199db631db9651b454a74ee6"
                 ),
             ));
 
@@ -235,7 +237,7 @@ class AuthController extends Controller
 
     public function changePassword(PasswordChangeRequest $request)
     {
-        $user = User::where( 'phone',$request->phone )->first();
+        $user = User::where('phone', $request->phone)->first();
 
         if ($user) {
 
@@ -245,7 +247,6 @@ class AuthController extends Controller
                 ]);
 
             return $this->returnSuccessMessage('Password has been changed');
-
         }
 
         return $this->returnError('Password not matched!');

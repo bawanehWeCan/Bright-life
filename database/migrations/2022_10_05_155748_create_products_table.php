@@ -22,7 +22,6 @@ return new class extends Migration
             $table->text('type')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
-            $table->timestamps();
 
         });
     }

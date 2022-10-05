@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('content');
             $table->double('price');
             $table->integer('user_id');
+            $table->text('type')->nullable();
             $table->text('image')->nullable();
             $table->timestamps();
             $table->timestamps();

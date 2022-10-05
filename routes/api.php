@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,12 +33,7 @@ Route::post('/password-otb', [AuthController::class, 'password']);
 Route::post('change-password', [AuthController::class, 'changePassword']);
 
 
-Route::get('countries', function()
-{
-	return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'),
-	'countries' =>Json::decode(Countries::getList('en', 'json'))]);
 
-});
 
 //supp
 Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);

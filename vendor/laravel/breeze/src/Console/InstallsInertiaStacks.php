@@ -15,7 +15,7 @@ trait InstallsInertiaStacks
     protected function installInertiaVueStack()
     {
         // Install Inertia...
-        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.5.4', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
+        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.6.3', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
 
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
@@ -38,7 +38,7 @@ trait InstallsInertiaStacks
 
         // Requests...
         (new Filesystem)->ensureDirectoryExists(app_path('Http/Requests/Auth'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/App/Http/Requests/Auth', app_path('Http/Requests/Auth'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/app/Http/Requests/Auth', app_path('Http/Requests/Auth'));
 
         // Middleware...
         $this->installMiddlewareAfter('SubstituteBindings::class', '\App\Http\Middleware\HandleInertiaRequests::class');
@@ -81,8 +81,10 @@ trait InstallsInertiaStacks
             $this->installInertiaVueSsrStack();
         }
 
+        $this->runCommands(['npm install', 'npm run build']);
+
+        $this->line('');
         $this->components->info('Breeze scaffolding installed successfully.');
-        $this->components->warn('Please execute the [npm install && npm run dev] commands to build your assets.');
     }
 
     /**
@@ -122,7 +124,7 @@ trait InstallsInertiaStacks
     protected function installInertiaReactStack()
     {
         // Install Inertia...
-        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.5.4', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
+        $this->requireComposerPackages('inertiajs/inertia-laravel:^0.6.3', 'laravel/sanctum:^2.8', 'tightenco/ziggy:^1.0');
 
         // NPM Packages...
         $this->updateNodePackages(function ($packages) {
@@ -136,8 +138,8 @@ trait InstallsInertiaStacks
                 'autoprefixer' => '^10.4.2',
                 'postcss' => '^8.4.6',
                 'tailwindcss' => '^3.1.0',
-                'react' => '^17.0.2',
-                'react-dom' => '^17.0.2',
+                'react' => '^18.2.0',
+                'react-dom' => '^18.2.0',
             ] + $packages;
         });
 
@@ -147,7 +149,7 @@ trait InstallsInertiaStacks
 
         // Requests...
         (new Filesystem)->ensureDirectoryExists(app_path('Http/Requests/Auth'));
-        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/App/Http/Requests/Auth', app_path('Http/Requests/Auth'));
+        (new Filesystem)->copyDirectory(__DIR__.'/../../stubs/default/app/Http/Requests/Auth', app_path('Http/Requests/Auth'));
 
         // Middleware...
         $this->installMiddlewareAfter('SubstituteBindings::class', '\App\Http\Middleware\HandleInertiaRequests::class');
@@ -197,8 +199,10 @@ trait InstallsInertiaStacks
             $this->installInertiaReactSsrStack();
         }
 
+        $this->runCommands(['npm install', 'npm run build']);
+
+        $this->line('');
         $this->components->info('Breeze scaffolding installed successfully.');
-        $this->components->warn('Please execute the [npm install && npm run dev] commands to build your assets.');
     }
 
     /**

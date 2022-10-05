@@ -34,7 +34,7 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 
 Route::get('countries', function()
 {
-	return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'), 
+	return response(['status' => true, 'code' => 200, 'msg' => __('User created succesfully'),
 	'countries' =>Json::decode(Countries::getList('en', 'json'))]);
 
 });
@@ -61,6 +61,51 @@ Route::get('services', [ServiceController::class, 'list']);
 Route::post('service-create', [ServiceController::class, 'store']);
 Route::get('services/{id}', [ServiceController::class, 'profile']);
 Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
+
+
+
+
+
+
+/**new code */
+//only those have manage_user permission will get access
+Route::get('products', [ProductController::class, 'pagination']);
+Route::post('products-create', [ProductController::class, 'save']);
+Route::get('products/{id}', [ProductController::class, 'view']);
+Route::get('products/delete/{id}', [ProductController::class, 'delete']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Route::middleware(['auth:api'])->group(function () {

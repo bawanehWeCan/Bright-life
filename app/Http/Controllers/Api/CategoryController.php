@@ -70,7 +70,7 @@ class CategoryController extends Controller
         $category = $this->categoryRepositry->getCategoryByID($id);
         if( !empty( $request->supplier_id ) ){
             if ($category) {
-                return $this->returnData('products', ProductResource::collection($category->products->where( 'user_id', $request->s )), __('Get Category succesfully'));
+                return $this->returnData('products', ProductResource::collection($category->products->where( 'user_id', $request->supplier_id )), __('Get Category succesfully'));
             }
         }
         if ($category) {

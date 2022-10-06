@@ -22,4 +22,8 @@ class Category extends Model
     public function suppliers(){
         return $this->morphedByMany( User::class, 'categoryable' );
     }
+
+    public function products(){
+        return $this->morphedByMany( Product::class, 'categoryable' );
+    }
 }

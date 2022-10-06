@@ -44,7 +44,7 @@ Route::get('supplier/{id}', [AuthController::class, 'supprofile']);
 
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
 Route::post('products/category', [AuthController::class, 'addCategory2']);
-Route::post('products/sub-category', [AuthController::class, 'addCategory3']);
+Route::post('suppliers/sub-category', [AuthController::class, 'addCategory3']);
 
 
 // cat

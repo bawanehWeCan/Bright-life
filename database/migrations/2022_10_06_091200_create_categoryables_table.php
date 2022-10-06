@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('categoryables', function (Blueprint $table) {
             $table->id();
-            $table->id();
             $table->integer('category_id');
             $table->integer('categoryable_id');
             $table->text('categoryable_type');

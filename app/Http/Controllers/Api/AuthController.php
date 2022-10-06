@@ -7,9 +7,11 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Requests\PasswordChangeRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\SupplierResource;
 use App\Http\Resources\UserResource;
 use App\Models\Category;
+use App\Models\Product;
 use App\Models\User;
 use App\Repositorys\UserRepository;
 use App\Traits\ResponseTrait;
@@ -299,6 +301,17 @@ class AuthController extends Controller
         $restaurant->categories()->save($category);
 
         return $this->returnData( 'data' , SupplierResource::make( $restaurant ), __('Succesfully'));
+
+    }
+
+    public function addCategory2( Request $request ){
+
+        $category   = Category::find( $request->category_id );
+        $restaurant = Product::find( $request->product_id );
+
+        $restaurant->categories()->save($category);
+
+        return $this->returnData( 'data' , ProductResource::make( $restaurant ), __('Succesfully'));
 
     }
 }

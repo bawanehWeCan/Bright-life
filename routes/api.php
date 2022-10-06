@@ -41,6 +41,7 @@ Route::get('/suppliers', [AuthController::class, 'list']);
 
 
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
+Route::post('products/category', [AuthController::class, 'addCategory2']);
 
 
 // cat

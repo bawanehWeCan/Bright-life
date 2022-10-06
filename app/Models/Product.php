@@ -26,4 +26,8 @@ class Product extends Model
     public function sizes(){
         return $this->hasMany(Size::class);
     }
+
+    public function categories(){
+        return $this->morphToMany( Category::class, 'categoryable' );
+    }
 }

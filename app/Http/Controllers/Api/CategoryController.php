@@ -8,6 +8,7 @@ use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
 use App\Repositorys\CategoryRepository;
 use App\Traits\ResponseTrait;
+use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
@@ -63,10 +64,10 @@ class CategoryController extends Controller
      * @param [type] $id
      * @return void
      */
-    public function profile($id)
+    public function profile(Request $request, $id)
     {
         $category = $this->categoryRepositry->getCategoryByID($id);
-
+        if( $request->supplier_id )
         if ($category) {
             return $this->returnData('Category', CategoryResource::make($category), __('Get Category succesfully'));
         }

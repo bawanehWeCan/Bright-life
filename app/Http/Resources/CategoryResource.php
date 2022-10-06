@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'image'=>$this->image,
-            'suppliers'=>SupplierResource::collection($this->suppliers),
+            // 'suppliers'=>SupplierResource::collection($this->suppliers),
         ];
     }
 }

@@ -321,11 +321,11 @@ class AuthController extends Controller
         $category->name = $request->name;
         $category->save();
 
-        $restaurant = Product::find( $request->product_id );
+        $restaurant = User::find( $request->supplier_id );
 
         $restaurant->categories()->save($category);
 
-        return $this->returnData( 'data' , ProductResource::make( $restaurant ), __('Succesfully'));
+        return $this->returnData( 'data' , SupplierResource::make( $restaurant ), __('Succesfully'));
 
     }
 

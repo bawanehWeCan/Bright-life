@@ -19,7 +19,7 @@ class Category extends Model
         }
     }
 
-    public function supplier(){
-        return $this->morphedByMany( Restaurant::class, 'categoryable' );
+    public function suppliers(){
+        return $this->morphedByMany( User::class, 'categoryable' );
     }
 }

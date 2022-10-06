@@ -24,6 +24,7 @@ class SupplierResource extends JsonResource
             'location'     => (string)$this->location,
             'description'     => (string)$this->description,
             'services'     => ServiceResource::collection($this->services),
+            'products'     => ProductResource::collection($this->products),
         ];
     }
 }

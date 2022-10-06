@@ -319,6 +319,7 @@ class AuthController extends Controller
 
         $category   = new Category();
         $category->name = $request->name;
+        $category->sub = 1;
         $category->save();
 
         $restaurant = User::find( $request->supplier_id );

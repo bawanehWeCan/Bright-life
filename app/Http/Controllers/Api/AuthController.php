@@ -315,6 +315,20 @@ class AuthController extends Controller
 
     }
 
+    public function addCategory3( Request $request ){
+
+        $category   = new Category();
+        $category->name = $request->name;
+        $category->save();
+
+        $restaurant = Product::find( $request->product_id );
+
+        $restaurant->categories()->save($category);
+
+        return $this->returnData( 'data' , ProductResource::make( $restaurant ), __('Succesfully'));
+
+    }
+
     public function supprofile($id)
     {
         $user = User::find($id);

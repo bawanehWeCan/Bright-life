@@ -317,7 +317,7 @@ class AuthController extends Controller
 
     public function supprofile($id)
     {
-        $user = Auth::find($id);
+        $user = User::find($id);
         // $roles = $user->getRoleNames();
         // $permission = $user->getAllPermissions();
 

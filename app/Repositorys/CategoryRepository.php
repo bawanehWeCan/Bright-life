@@ -36,6 +36,12 @@ class CategoryRepository
         return $categorys;
     }
 
+    public function allCategorys2()
+    {
+        $categorys = $this->category->where('sub',0)->get();
+        return $categorys;
+    }
+
     /**
      * saveCategory function
      *

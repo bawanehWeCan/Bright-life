@@ -30,6 +30,7 @@ class ProductRepository extends AbstractRepository
         $model->content    = $data['content'];
         $model->user_id   = $data['user_id'];
         $model->price   = $data['price'];
+        $model->type   = $data['type'];
         $model->save();
 
         return $model->fresh();

@@ -294,7 +294,7 @@ class AuthController extends Controller
     public function addCategory( Request $request ){
 
         $category   = Category::find( $request->category_id );
-        $restaurant = User::find( $request->restaurant_id );
+        $restaurant = User::find( $request->supplier_id );
 
         $restaurant->categories()->save($category);
 

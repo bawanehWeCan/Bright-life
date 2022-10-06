@@ -314,4 +314,19 @@ class AuthController extends Controller
         return $this->returnData( 'data' , ProductResource::make( $restaurant ), __('Succesfully'));
 
     }
+
+    public function supprofile($id)
+    {
+        $user = Auth::find($id);
+        // $roles = $user->getRoleNames();
+        // $permission = $user->getAllPermissions();
+
+        // return response([
+        //     'user' => $user,
+        //     'success' => 1,
+        // ]);
+
+
+        return $this->returnData('user', SupplierResource::make($user), 'successful');
+    }
 }

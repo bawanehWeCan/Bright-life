@@ -39,6 +39,8 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
 Route::get('/suppliers', [AuthController::class, 'list']);
 
+Route::get('suppliers/{id}', [AuthController::class, 'supprofile']);
+
 
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
 Route::post('products/category', [AuthController::class, 'addCategory2']);

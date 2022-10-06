@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RoleChangeRequest;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\ProductResource;
 use App\Repositorys\CategoryRepository;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -67,7 +68,11 @@ class CategoryController extends Controller
     public function profile(Request $request, $id)
     {
         $category = $this->categoryRepositry->getCategoryByID($id);
-        if( $request->supplier_id )
+        if( !empty( $request->supplier_id ) ){
+            if ($category) {
+                return $this->returnData('products', ProductResource::collection($category->products->where( 'user_id', $request->s )), __('Get Category succesfully'));
+            }
+        }
         if ($category) {
             return $this->returnData('Category', CategoryResource::make($category), __('Get Category succesfully'));
         }

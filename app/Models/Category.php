@@ -18,4 +18,8 @@ class Category extends Model
             $this->attributes['image'] =  'img/cats/'.$filename;
         }
     }
+
+    public function supplier(){
+        return $this->morphedByMany( Restaurant::class, 'categoryable' );
+    }
 }

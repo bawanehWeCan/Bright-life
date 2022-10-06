@@ -25,12 +25,12 @@ class ProductRepository extends AbstractRepository
     {
 
         $model = new $this->model;
-        $model->name    = $data['name'];
-        $model->image    = $data['image'];
-        $model->content    = $data['content'];
-        $model->user_id   = $data['user_id'];
-        $model->price   = $data['price'];
-        $model->type   = $data['type'];
+        $model->name        = $data['name'];
+        $model->image       = $data['image'];
+        $model->content     = $data['content'];
+        $model->user_id     = $data['user_id'];
+        $model->price       = $data['price'];
+        $model->type        = $data['type'];
         $model->save();
 
         return $model->fresh();

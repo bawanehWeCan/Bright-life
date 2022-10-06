@@ -40,6 +40,8 @@ Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
 Route::get('/suppliers', [AuthController::class, 'list']);
 
 
+Route::post('suppliers/category', [AuthController::class, 'addCategory']);
+
 
 // cat
 

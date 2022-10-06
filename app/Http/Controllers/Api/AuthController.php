@@ -9,6 +9,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\SupplierResource;
 use App\Http\Resources\UserResource;
+use App\Models\Category;
 use App\Models\User;
 use App\Repositorys\UserRepository;
 use App\Traits\ResponseTrait;
@@ -206,7 +207,7 @@ class AuthController extends Controller
     {
         $user = User::where('phone', $request->phone)->first();
         if ($user) {
-            
+
             $curl = curl_init();
 
             curl_setopt_array($curl, array(
@@ -287,5 +288,17 @@ class AuthController extends Controller
         $user->revoke();
 
         return $this->returnSuccessMessage('Logged out succesfully!');
+    }
+
+
+    public function addCategory( Request $request ){
+
+        $category   = Category::find( $request->category_id );
+        $restaurant = User::find( $request->restaurant_id );
+
+        $restaurant->categories()->save($category);
+
+        return $this->returnData( 'data' , SupplierResource::make( $restaurant ), __('Succesfully'));
+
     }
 }

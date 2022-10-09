@@ -81,4 +81,9 @@ class User extends Authenticatable
     public function categories(){
         return $this->morphToMany( Category::class, 'categoryable' );
     }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
+    }
+
 }

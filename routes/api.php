@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,9 @@ Route::get('products/{id}', [ProductController::class, 'view']);
 Route::get('products/delete/{id}', [ProductController::class, 'delete']);
 
 
+Route::post('make-order',[ OrderController::class, 'store' ]);
+Route::post('update-order',[ OrderController::class, 'update' ]);
+
 
 
 
@@ -111,6 +115,9 @@ Route::get('products/delete/{id}', [ProductController::class, 'delete']);
 
 
 Route::middleware(['auth:api'])->group(function () {
+
+
+    Route::post('my-order',[ OrderController::class, 'myOrders' ]);
 
 	Route::get('logout', [AuthController::class, 'logout']);
 

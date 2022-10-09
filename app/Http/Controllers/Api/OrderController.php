@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
+use App\Http\Resources\ProductResource;
 use App\Traits\ResponseTrait;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\ProductItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -72,5 +74,18 @@ class OrderController extends Controller
         // ]);
 
         return $this->returnData('data', new OrderResource($order), '');
+    }
+
+    public function myOrders(){
+        $orders = Auth::user()->orders;
+
+        return $this->returnData('data',  OrderResource::collection($orders), '');
+    }
+
+    public function myProducts(){
+        $products = Auth::user()->products;
+
+        return $this->returnData('data',  ProductResource::collection($products), '');
+
     }
 }

@@ -118,6 +118,7 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('my-orders',[ OrderController::class, 'myOrders' ]);
+    Route::get('my-products',[ OrderController::class, 'myProducts' ]);
 
 	Route::get('logout', [AuthController::class, 'logout']);
 

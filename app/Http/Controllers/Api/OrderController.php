@@ -93,7 +93,7 @@ class OrderController extends Controller
 
     public function search( $value ){
 
-        $users = User::where('name', 'like', '%' . $value . '%' );
+        $users = User::where('name', 'like', '%' . $value . '%' )->get();
 
         return $this->returnData( 'data' , SupplierResource::make( $users ), __('Succesfully'));
 

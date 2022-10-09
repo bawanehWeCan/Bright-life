@@ -95,6 +95,7 @@ class OrderController extends Controller
 
         $users = User::where('name', 'like', '%' . $value . '%' )->where('type','suppliers')->get();
 
+        dd( $users );
 
         if($users){
 

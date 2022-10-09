@@ -117,7 +117,7 @@ Route::post('update-order',[ OrderController::class, 'update' ]);
 Route::middleware(['auth:api'])->group(function () {
 
 
-    Route::post('my-orders',[ OrderController::class, 'myOrders' ]);
+    Route::get('my-orders',[ OrderController::class, 'myOrders' ]);
 
 	Route::get('logout', [AuthController::class, 'logout']);
 

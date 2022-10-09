@@ -95,7 +95,11 @@ class OrderController extends Controller
 
         $users = User::where('name', 'like', '%' . $value . '%' )->get();
 
-        return $this->returnData( 'data' , SupplierResource::make( $users ), __('Succesfully'));
+        if($users){
+
+            return $this->returnData( 'data' , SupplierResource::make( $users ), __('Succesfully'));
+        }
+
 
     }
 }

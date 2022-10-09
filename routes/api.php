@@ -82,7 +82,7 @@ Route::post('make-order',[ OrderController::class, 'store' ]);
 Route::post('update-order',[ OrderController::class, 'update' ]);
 
 
-
+Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
 
 

@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\ProductResource;
+use App\Http\Resources\SupplierResource;
 use App\Traits\ResponseTrait;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\ProductItem;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +88,14 @@ class OrderController extends Controller
         $products = Auth::user()->products;
 
         return $this->returnData('data',  ProductResource::collection($products), '');
+
+    }
+
+    public function search( $value ){
+
+        $users = User::where('name', 'like', '%' . $value . '%' );
+
+        return $this->returnData( 'data' , SupplierResource::make( $users ), __('Succesfully'));
 
     }
 }

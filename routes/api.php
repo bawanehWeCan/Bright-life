@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
@@ -52,6 +53,12 @@ Route::get('categories', [CategoryController::class, 'list']);
 Route::post('category-create', [CategoryController::class, 'store']);
 Route::get('category/{id}', [CategoryController::class, 'profile']);
 Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
+
+//only those have manage_user permission will get access
+Route::get('address', [AddressController::class, 'list']);
+Route::post('address-create', [AddressController::class, 'store']);
+Route::get('address/{id}', [AddressController::class, 'profile']);
+Route::get('address/delete/{id}', [AddressController::class, 'delete']);
 
 
 // cat

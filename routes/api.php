@@ -37,17 +37,14 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 
 
 //supp
-Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
+Route::post('/user-supplier', [AuthController::class, 'store']);
 Route::get('/suppliers', [AuthController::class, 'list']);
-
 Route::get('supplier/{id}', [AuthController::class, 'supprofile']);
-
-
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
-Route::post('products/category', [AuthController::class, 'addCategory2']);
 Route::post('suppliers/sub-category', [AuthController::class, 'addCategory3']);
 
 
+Route::post('products/category', [AuthController::class, 'addCategory2']);
 // cat
 
 //only those have manage_user permission will get access

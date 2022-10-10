@@ -35,32 +35,4 @@ class AddressController extends ApiController
         return $this->store( $request );
     }
 
-    public function store( $data )
-    {
-        $extraRepo  = new ExtraRepository( app(Extra::class) );
-        $sizeRepo   = new SizeRepository( app(Size::class) );
-        $model = $this->repositry->save( $data );
-
-        foreach ($data['sizes'] as  $value) {
-            $value['Address_id'] = $model->id;
-            $extra = $extraRepo->save( $value );
-        }
-
-        foreach ($data['extras'] as  $value) {
-            $value['Address_id'] = $model->id;
-            $extra = $sizeRepo->save( $value );
-        }
-
-
-
-
-        if ($model) {
-            return $this->returnData( 'data' , new $this->resource( $model ), __('Succesfully'));
-        }
-
-        return $this->returnError(__('Sorry! Failed to create !'));
-    }
-
-
-
 }

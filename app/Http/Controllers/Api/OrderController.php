@@ -81,6 +81,8 @@ class OrderController extends Controller
     public function myOrders(){
         $orders = Auth::user()->orders;
 
+        dd($orders);
+
         return $this->returnData('data',  OrderResource::collection($orders), '');
     }
 

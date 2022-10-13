@@ -27,7 +27,7 @@ class OrderResource extends JsonResource
             'total'=>$this->total,
             'lat'=>$this->lat,
             'long'=>$this->long,
-            'products'=> CartItemResource::collection($this?->products),
+            // 'products'=> CartItemResource::collection($this?->products),
         ];
     }
 }

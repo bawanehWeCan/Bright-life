@@ -143,7 +143,7 @@ Route::middleware(['auth:api'])->group(function () {
             'associatedModel' => $Product
         ));
 
-        dd( \Cart::session(55)->getContent() );
+        print_r(\Cart::session(55)->getContent());
     });
 
 

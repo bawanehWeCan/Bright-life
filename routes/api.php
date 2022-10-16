@@ -127,15 +127,45 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('cart', function (Request $request) {
 
-        $userID = Auth::user()->id;
-        // add the product to cart
-        \Cart::session($userID)->add(array(
-            'id' => 55,
-            'name' => 'test',
-            'price' => 14,
+        // array format
+        Cart::add(array(
+            'id' => 456, // inique row ID
+            'name' => 'Sample Item',
+            'price' => 67.99,
+            'quantity' => 4,
+            'attributes' => array()
+        ));
+
+        // add multiple items at one time
+        Cart::add(array(
+            array(
+                'id' => 456,
+                'name' => 'Sample Item 1',
+                'price' => 67.99,
+                'quantity' => 4,
+                'attributes' => array()
+            ),
+            array(
+                'id' => 568,
+                'name' => 'Sample Item 2',
+                'price' => 69.25,
+                'quantity' => 4,
+                'attributes' => array(
+                    'size' => 'L',
+                    'color' => 'blue'
+                )
+            ),
+        ));
+
+        // add cart items to a specific user
+        $userId = auth()->user()->id; // or any string represents user identifier
+        Cart::session($userId)->add(array(
+            'id' => 456, // inique row ID
+            'name' => 'Sample Item',
+            'price' => 67.99,
             'quantity' => 4,
             'attributes' => array(),
-            'associatedModel' => 'App\Models\Product'
+            'associatedModel' => $Product
         ));
     });
 

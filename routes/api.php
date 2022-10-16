@@ -143,7 +143,7 @@ Route::middleware(['auth:api'])->group(function () {
             'associatedModel' => $Product
         ));
 
-        dd( $Product );
+        dd( Cart::getContent() );
     });
 
 

@@ -126,7 +126,7 @@ Route::middleware(['auth:api'])->group(function () {
     Route::get('cart', function () {
         $cart = Cart::session(55);
 
-dd($cart->getContent()->count());
+dd($cart->getContent());
     });
 
     Route::post('cart', function (Request $request) {

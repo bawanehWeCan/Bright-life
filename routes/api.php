@@ -131,7 +131,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('cart', function (Request $request) {
 
-        dd($request->product_id);
+        // dd($request->product_id);
 
         $Product = Product::find($request->product_id); // assuming you have a Product model with id, name, description & price
         $rowId = $Product->id . Auth::user()->id; // generate a unique() row ID

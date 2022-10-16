@@ -114,9 +114,6 @@ Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
 
 
-Route::get('cart', function () {
-    dd(\Cart::session(Auth::user()->id)->getContent());
-});
 
 
 
@@ -124,6 +121,9 @@ Route::get('cart', function () {
 Route::middleware(['auth:api'])->group(function () {
 
 
+    Route::get('cart', function () {
+        dd(\Cart::session(Auth::user()->id)->getContent());
+    });
 
     Route::post('cart', function (Request $request) {
 
@@ -136,7 +136,6 @@ Route::middleware(['auth:api'])->group(function () {
                 'name' => 'test p',
                 'price' => 14,
                 'quantity' => 4,
-                'attributes' => array(),
             ))
 
         );

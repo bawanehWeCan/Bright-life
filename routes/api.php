@@ -130,18 +130,20 @@ Route::middleware(['auth:api'])->group(function () {
     Route::post('cart', function (Request $request) {
 
         $Product = Product::find(1); // assuming you have a Product model with id, name, description & price
-$rowId = 456; // generate a unique() row ID
-$userID = Auth::user()->id; // the user ID to bind the cart contents
+        $rowId = 456; // generate a unique() row ID
+        $userID = Auth::user()->id; // the user ID to bind the cart contents
 
-// add the product to cart
-\Cart::session($userID)->add(array(
-    'id' => $rowId,
-    'name' => $Product->name,
-    'price' => $Product->price,
-    'quantity' => 4,
-    'attributes' => array(),
-    'associatedModel' => $Product
-));
+        // add the product to cart
+        \Cart::session($userID)->add(array(
+            'id' => $rowId,
+            'name' => $Product->name,
+            'price' => $Product->price,
+            'quantity' => 4,
+            'attributes' => array(),
+            'associatedModel' => $Product
+        ));
+
+        dd( $Product );
     });
 
 

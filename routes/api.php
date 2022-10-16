@@ -131,7 +131,7 @@ Route::middleware(['auth:api'])->group(function () {
         // add the product to cart
         \Cart::session($userID)->add(array(
             'id' => 55,
-            'name' => 'test',
+            'name' => 'test p',
             'price' => 14,
             'quantity' => 4,
             'attributes' => array(),

@@ -154,6 +154,31 @@ Route::middleware(['auth:api'])->group(function () {
         print_r(\Cart::session(55)->getContent());
     });
 
+    Route::post('update-cart', function (Request $request) {
+
+        // dd($request->product_id);
+
+        $Product = Product::find($request->product_id); // assuming you have a Product model with id, name, description & price
+        $rowId = $Product->id . Auth::user()->id; // generate a unique() row ID
+
+        // add the product to cart
+        \Cart::session(Auth::user()->id)->update($rowId,array(
+
+            'name' => $Product->name,
+            'price' => $Product->price,
+            'quantity' => $request->quantity,
+            'attributes' => array(
+                'size_id'=>$request->size_id,
+                'extras'=>$request->extras
+            ),
+            'associatedModel' => $Product
+        ));
+
+
+
+        print_r(\Cart::session(55)->getContent());
+    });
+
 
     Route::get('my-orders', [OrderController::class, 'myOrders']);
     Route::get('my-products', [OrderController::class, 'myProducts']);

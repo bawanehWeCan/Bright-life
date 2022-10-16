@@ -145,6 +145,15 @@ dd($cart->getContent()->count());
             'associatedModel' => $Product
         ));
 
+        \Cart::session(55)->add(array(
+            'id' => 4567,
+            'name' => $Product->name,
+            'price' => $Product->price,
+            'quantity' => 4,
+            'attributes' => array(),
+            'associatedModel' => $Product
+        ));
+
         print_r(\Cart::session(55)->getContent());
     });
 

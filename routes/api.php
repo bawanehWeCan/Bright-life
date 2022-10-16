@@ -165,7 +165,6 @@ Route::middleware(['auth:api'])->group(function () {
             'price' => 67.99,
             'quantity' => 4,
             'attributes' => array(),
-            'associatedModel' => $Product
         ));
     });
 

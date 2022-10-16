@@ -122,7 +122,7 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('cart', function () {
-        dd(\Cart::getContent());
+        dd(\Cart::session(Auth::user()->id));
     });
 
     Route::post('cart', function (Request $request) {

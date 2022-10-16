@@ -122,6 +122,7 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('cart', function () {
+        echo 'try';
         print_r(\Cart::session(Auth::user()->id)->getContent());
     });
 

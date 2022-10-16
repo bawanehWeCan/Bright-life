@@ -82,8 +82,8 @@ Route::get('products/{id}', [ProductController::class, 'view']);
 Route::get('products/delete/{id}', [ProductController::class, 'delete']);
 
 
-Route::post('make-order',[ OrderController::class, 'store' ]);
-Route::post('update-order',[ OrderController::class, 'update' ]);
+Route::post('make-order', [OrderController::class, 'store']);
+Route::post('update-order', [OrderController::class, 'update']);
 
 
 Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
@@ -121,38 +121,57 @@ Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 Route::middleware(['auth:api'])->group(function () {
 
 
-    Route::get('my-orders',[ OrderController::class, 'myOrders' ]);
-    Route::get('my-products',[ OrderController::class, 'myProducts' ]);
-    Route::get('my-address',[ AddressController::class, 'user_address' ]);
+    Route::get('cart', function () {
+        dd(\Cart::getContent());
+    });
 
-	Route::get('logout', [AuthController::class, 'logout']);
+    Route::post('cart', function (Request $request) {
 
-	Route::get('profile', [AuthController::class, 'profile']);
-	Route::post('change-password', [AuthController::class, 'changePassword']);
-	Route::post('update-profile', [AuthController::class, 'updateProfile']);
-
-	//only those have manage_user permission will get access
-	Route::get('/users', [UserController::class, 'list']);
-	Route::post('/user-create', [UserController::class, 'store']);
-	Route::get('/user/{id}', [UserController::class, 'profile']);
-	Route::get('/user/delete/{id}', [UserController::class, 'delete']);
-	Route::post('/user/change-role/{id}', [UserController::class, 'changeRole']);
-
-	//only those have manage_role permission will get access
-	Route::group(['middleware' => 'can:manage_role|manage_user'], function () {
-		Route::get('/roles', [RolesController::class, 'list']);
-		Route::post('/role/create', [RolesController::class, 'store']);
-		Route::get('/role/{id}', [RolesController::class, 'show']);
-		Route::get('/role/delete/{id}', [RolesController::class, 'delete']);
-		Route::post('/role/change-permission/{id}', [RolesController::class, 'changePermissions']);
-	});
+        $userID = Auth::user()->id;
+        // add the product to cart
+        \Cart::session($userID)->add(array(
+            'id' => 55,
+            'name' => 'test',
+            'price' => 14,
+            'quantity' => 4,
+            'attributes' => array(),
+            'associatedModel' => 'App\Models\Product'
+        ));
+    });
 
 
-	//only those have manage_permission permission will get access
-	Route::group(['middleware' => 'can:manage_permission|manage_user'], function () {
-		Route::get('/permissions', [PermissionController::class, 'list']);
-		Route::post('/permission/create', [PermissionController::class, 'store']);
-		Route::get('/permission/{id}', [PermissionController::class, 'show']);
-		Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
-	});
+    Route::get('my-orders', [OrderController::class, 'myOrders']);
+    Route::get('my-products', [OrderController::class, 'myProducts']);
+    Route::get('my-address', [AddressController::class, 'user_address']);
+
+    Route::get('logout', [AuthController::class, 'logout']);
+
+    Route::get('profile', [AuthController::class, 'profile']);
+    Route::post('change-password', [AuthController::class, 'changePassword']);
+    Route::post('update-profile', [AuthController::class, 'updateProfile']);
+
+    //only those have manage_user permission will get access
+    Route::get('/users', [UserController::class, 'list']);
+    Route::post('/user-create', [UserController::class, 'store']);
+    Route::get('/user/{id}', [UserController::class, 'profile']);
+    Route::get('/user/delete/{id}', [UserController::class, 'delete']);
+    Route::post('/user/change-role/{id}', [UserController::class, 'changeRole']);
+
+    //only those have manage_role permission will get access
+    Route::group(['middleware' => 'can:manage_role|manage_user'], function () {
+        Route::get('/roles', [RolesController::class, 'list']);
+        Route::post('/role/create', [RolesController::class, 'store']);
+        Route::get('/role/{id}', [RolesController::class, 'show']);
+        Route::get('/role/delete/{id}', [RolesController::class, 'delete']);
+        Route::post('/role/change-permission/{id}', [RolesController::class, 'changePermissions']);
+    });
+
+
+    //only those have manage_permission permission will get access
+    Route::group(['middleware' => 'can:manage_permission|manage_user'], function () {
+        Route::get('/permissions', [PermissionController::class, 'list']);
+        Route::post('/permission/create', [PermissionController::class, 'store']);
+        Route::get('/permission/{id}', [PermissionController::class, 'show']);
+        Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
+    });
 });

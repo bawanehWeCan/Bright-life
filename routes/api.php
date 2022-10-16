@@ -122,7 +122,6 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('cart', function () {
-        echo 'try';
         print_r(\Cart::session(Auth::user()->id)->getContent());
     });
 
@@ -130,7 +129,7 @@ Route::middleware(['auth:api'])->group(function () {
 
         $userID = Auth::user()->id;
         // add the product to cart
-        dd(
+        print_r(
 
             \Cart::add(array(
                 'id' => 55,

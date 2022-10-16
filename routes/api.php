@@ -124,7 +124,7 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('cart', function () {
-        print_r(\Cart::session(Auth::user()->id)->getContent());
+        print_r(\Cart::getContent());
     });
 
     Route::post('cart', function (Request $request) {
@@ -134,7 +134,7 @@ Route::middleware(['auth:api'])->group(function () {
         $userID = Auth::user()->id; // the user ID to bind the cart contents
 
         // add the product to cart
-        \Cart::session($userID)->add(array(
+        \Cart::add(array(
             'id' => $rowId,
             'name' => $Product->name,
             'price' => $Product->price,

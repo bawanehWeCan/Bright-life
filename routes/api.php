@@ -124,35 +124,30 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('cart', function () {
-        $cart = Cart::session(55);
+        $cart = Cart::session(Auth::user()->id);
 
-dd($cart->getContent());
+        dd($cart->getContent());
     });
 
     Route::post('cart', function (Request $request) {
 
-        $Product = Product::find(1); // assuming you have a Product model with id, name, description & price
-        $rowId = 456; // generate a unique() row ID
-        $userID = Auth::user()->id; // the user ID to bind the cart contents
+        $Product = Product::find($request->product_id); // assuming you have a Product model with id, name, description & price
+        $rowId = $Product->id . Auth::user()->id; // generate a unique() row ID
 
         // add the product to cart
-        \Cart::session(55)->add(array(
+        \Cart::session(Auth::user()->id)->add(array(
             'id' => $rowId,
             'name' => $Product->name,
             'price' => $Product->price,
-            'quantity' => 4,
-            'attributes' => array(),
+            'quantity' => $request->quantity,
+            'attributes' => array(
+                'size_id'=>$request->size_id,
+                'extras'=>$request->extras
+            ),
             'associatedModel' => $Product
         ));
 
-        \Cart::session(55)->add(array(
-            'id' => 4567,
-            'name' => $Product->name,
-            'price' => $Product->price,
-            'quantity' => 4,
-            'attributes' => array(),
-            'associatedModel' => $Product
-        ));
+
 
         print_r(\Cart::session(55)->getContent());
     });

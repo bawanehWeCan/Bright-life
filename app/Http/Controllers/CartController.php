@@ -10,7 +10,7 @@ class CartController extends Controller
     use ResponseTrait;
     public function getCart(){
 
-        $cart = Cart::session(Auth::user()->id);
+        $cart = \Cart::session(Auth::user()->id);
 
         // dd($cart->getContent());
 

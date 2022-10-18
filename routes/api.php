@@ -131,7 +131,7 @@ Route::middleware(['auth:api'])->group(function () {
         // dd($request->product_id);
 
         $Product = Product::find($request->product_id); // assuming you have a Product model with id, name, description & price
-        $rowId = $Product->id . Auth::user()->id; // generate a unique() row ID
+        $rowId = $Product->id + 2 . Auth::user()->id; // generate a unique() row ID
 
         // add the product to cart
         \Cart::session(Auth::user()->id)->add(array(
@@ -141,7 +141,8 @@ Route::middleware(['auth:api'])->group(function () {
             'quantity' => $request->quantity,
             'attributes' => array(
                 'size_id'=>$request->size_id,
-                'extras'=>$request->extras
+                'extras'=>$request->extras,
+                'note'=>$request->note,
             ),
             'associatedModel' => $Product
         ));

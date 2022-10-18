@@ -128,10 +128,7 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::post('cart',  [ CartController::class, 'add' ]);
 
-    Route::post('update-cart', function (Request $request) {
-
-
-    });
+    Route::post('update-cart', [ CartController::class, 'update' ]);
 
 
     Route::get('my-orders', [OrderController::class, 'myOrders']);

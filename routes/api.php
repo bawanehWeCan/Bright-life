@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\CartController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 
@@ -123,11 +124,7 @@ Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 Route::middleware(['auth:api'])->group(function () {
 
 
-    Route::get('cart', function () {
-        $cart = Cart::session(Auth::user()->id);
-
-        dd(Auth::user()->id);
-    });
+    Route::get('cart', [ CartController::class, 'getCart' ]);
 
     Route::post('cart', function (Request $request) {
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Resources\CartResource;
+use App\Models\Product;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
 use Auth;

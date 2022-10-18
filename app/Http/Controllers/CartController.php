@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
+use Auth;
 
 class CartController extends Controller
 {

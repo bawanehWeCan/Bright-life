@@ -49,4 +49,28 @@ class CartController extends Controller
 
         return $this->returnData('data', CartResource::collection($cart->getContent()));
     }
+
+    public function update( Request $request ){
+            // dd($request->product_id);
+
+            $Product = Product::find($request->product_id); // assuming you have a Product model with id, name, description & price
+            $rowId = $Product->id . Auth::user()->id; // generate a unique() row ID
+
+            // add the product to cart
+            \Cart::session(Auth::user()->id)->update($rowId,array(
+
+                'name' => $Product->name,
+                'price' => $Product->price,
+                'quantity' => $request->quantity,
+                'attributes' => array(
+                    'size_id'=>$request->size_id,
+                    'extras'=>$request->extras
+                ),
+                'associatedModel' => $Product
+            ));
+
+            $cart = \Cart::session(Auth::user()->id);
+
+            return $this->returnData('data', CartResource::collection($cart->getContent()));
+    }
 }

@@ -25,6 +25,6 @@ class CartResource extends JsonResource
             'extras' => $this->attributes['extras'],
             'note' => $this->attributes['note'],
         ];
-    }
+
     }
 }

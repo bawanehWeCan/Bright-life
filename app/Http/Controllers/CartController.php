@@ -16,7 +16,7 @@ class CartController extends Controller
 
         // dd($cart->getContent());
 
-        return $this->returnData('data', new CartResource($cart->getContent()));
+        return $this->returnData('data', CartResource::collection($cart->getContent()));
 
     }
 }

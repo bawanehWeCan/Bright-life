@@ -170,7 +170,7 @@ class AuthController extends Controller
         $user->phone        = $request->phone;
         $user->image        = $request->image;
         $user->cover        = $request->cover;
-        $user->type         = 'suppliers';
+        $user->type         = 'supplier';
         $user->location     = $request->location;
         $user->description  = $request->description;
         $user->password     = Hash::make($request->password);

@@ -47,10 +47,10 @@ class UserRepository
 
         $user = new $this->user;
         $user->name = $data['name'];
-        $user->lname = $data['last_name'];
         $user->email = $data['email'];
         $user->phone = $data['phone'];
          $user->image = $data['image'];
+         $user->type = 'user';
         $user->password = Hash::make($data['password']);
         $user->save();
 

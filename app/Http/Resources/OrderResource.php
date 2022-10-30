@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -16,18 +17,21 @@ class OrderResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'user_id'=>$this->user_id,
-            'driver_id'=>$this->user_id,
-            'user_name'=>$this->user->name,
-            'driver_name'=>$this->user->name,
-            'restaurant_id'=>$this->restaurant_id,
-            'restaurant_name'=>$this->restaurant?->name,
-            'note'=>$this->note,
             'status'=>$this->status,
-            'total'=>$this->total,
+            'payment_method'=>$this->payment_method,
+            'note'=>$this->note,
             'lat'=>$this->lat,
             'long'=>$this->long,
-            // 'products'=> CartItemResource::collection($this?->products),
+            'total'=>$this->total,
+            'tax'=>$this->tax,
+            'delivery_fee'=>$this->delivery_fee,
+            'discount'=>$this->discount,
+            'percentage'=>$this->percentage,
+            'number'=>$this->number,
+            'order_value'=>$this->order_value,
+            'user'=>new UserResource( User::findOrFail($this->user_id) ),
+            'supplier_id'=>new UserResource( User::findOrFail($this->supplier_id) ),
+            'products'=> CartItemResource::collection($this->products),
         ];
     }
 }

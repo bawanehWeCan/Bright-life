@@ -25,7 +25,16 @@ class OrderController extends Controller
         $order->supplier_id = $request->supplier_id;
         $order->note = !empty($request->note) ? $request->note : '';
         $order->total = $request->total;
-        $order->status = 'pending';
+        $order->status = 'Pending';
+        $order->payment_method = $request->payment_method;
+        $order->lat = $request->lat;
+        $order->long = $request->long;
+        $order->tax = $request->tax;
+        $order->delivery_fee = $request->delivery_fee;
+        $order->discount = $request->discount;
+        $order->percentage = $request->percentage;
+        $order->order_value = (double)(($request->total + $request->tax + $request->delivery_fee  + $request->percentage) - $request->discount);
+
         $order->save();
 
         foreach ($request->products as $product) {
@@ -93,9 +102,9 @@ class OrderController extends Controller
 
     }
 
-    public function search( $value ){
+    public function search( Request $request ){
 
-        $users = User::where('name', 'like', '%' . $value . '%' )->where('type','suppliers')->get();
+        $users = User::where('name', 'like', '%' . $request->input('number') . '%' )->where('type','suppliers')->get();
 
         // dd( $users );
 
@@ -105,5 +114,18 @@ class OrderController extends Controller
         }
 
 
+    }
+
+    public function view(Order $order)
+    {
+        return $this->returnData("Order",new OrderResource($order));
+    }
+    public function orderSearch($value)
+    {
+        $order = Order::where('number','like', '%' . $value . '%' )->first();
+        if(!$order){
+            return $this->returnError('Sorry! this order number is not exists');
+        }
+        return $this->returnData('data', new OrderResource($order), '');
     }
 }

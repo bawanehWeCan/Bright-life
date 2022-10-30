@@ -15,13 +15,20 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
-            $table->integer('supplier_id');
-            $table->text('status');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('supplier_id')->constrained('users','id')->cascadeOnDelete();
+            $table->enum('status',['Pending','On Delivery','Complete','Cancel']);
+            $table->enum('payment_method',['Cash','Credit']);
             $table->text('note');
             $table->text('lat')->nullable();
             $table->text('long')->nullable();
-            $table->integer('total');
+            $table->double('total');
+            $table->double('tax');
+            $table->double('delivery_fee');
+            $table->double('discount');
+            $table->double('percentage');
+            $table->double('order_value');
+            $table->string('number')->unique();
             $table->timestamps();
         });
     }

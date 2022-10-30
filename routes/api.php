@@ -87,6 +87,8 @@ Route::get('products/delete/{id}', [ProductController::class, 'delete']);
 
 Route::post('make-order', [OrderController::class, 'store']);
 Route::post('update-order', [OrderController::class, 'update']);
+Route::get('view-order/{order}', [OrderController::class, 'view']);
+Route::get('search-order/{number?}', [OrderController::class, 'orderSearch']);
 
 
 Route::post('suppliers/search/{value}', [OrderController::class, 'search']);

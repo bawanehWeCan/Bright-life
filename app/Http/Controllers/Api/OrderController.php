@@ -27,8 +27,6 @@ class OrderController extends Controller
         $order->total = $request->total;
         $order->status = 'Pending';
         $order->payment_method = $request->payment_method;
-        $order->lat = $request->lat;
-        $order->long = $request->long;
         $order->tax = $request->tax;
         $order->delivery_fee = $request->delivery_fee;
         $order->discount = $request->discount;
@@ -120,12 +118,25 @@ class OrderController extends Controller
     {
         return $this->returnData("Order",new OrderResource($order));
     }
-    public function orderSearch($value)
+    public function orderSearch(Request $request)
     {
-        $order = Order::where('number','like', '%' . $value . '%' )->first();
-        if(!$order){
-            return $this->returnError('Sorry! this order number is not exists');
+        if ($request->has('id')) {
+            $order = Order::where('id',$request->id)->first();
+            if(!$order){
+                return $this->returnError('Sorry! this order id is not exists');
+            }
+            return $this->returnData('data', new OrderResource($order), '');
+        }else{
+            $order = Order::where('number','like', '%' . $request->number . '%' )->first();
+            if(!$order){
+                return $this->returnError('Sorry! this order number is not exists');
+            }
+            return $this->returnData('data', new OrderResource($order), '');
         }
-        return $this->returnData('data', new OrderResource($order), '');
+    }
+
+    public function list(){
+        $orders = Order::paginate(10);
+        return $this->returnData("data",OrderResource::collection($orders));
     }
 }

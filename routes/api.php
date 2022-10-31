@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\CartController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,7 @@ Route::post('/otb-check', [AuthController::class, 'check']);
 Route::post('/password-otb', [AuthController::class, 'password']);
 
 Route::post('change-password', [AuthController::class, 'changePassword']);
+
 
 
 
@@ -74,6 +76,12 @@ Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
 
 
 
+
+//Reviews
+Route::get('reviews', [ReviewController::class, 'test']);
+Route::post('review-create', [ReviewController::class, 'save']);
+Route::get('review/{id}', [ReviewController::class, 'view']);
+Route::post('review/delete/{id}', [ReviewController::class, 'delete']);
 
 
 

@@ -24,7 +24,7 @@ class CartItemResource extends JsonResource
             'size'=>$this->size->name,
             'extras'=> ProductItemResource::collection($this->extras) ,
             'note'=>$this->note,
-            'price'=>$this->price,
+            'price'=>number_format($this->price,2),
         ];
     }
 }

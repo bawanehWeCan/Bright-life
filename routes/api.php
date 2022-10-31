@@ -60,7 +60,7 @@ Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
 //only those have manage_user permission will get access
 Route::get('address', [AddressController::class, 'list']);
 Route::post('address-create', [AddressController::class, 'save']);
-Route::get('address/{id}', [AddressController::class, 'profile']);
+Route::get('address/{id}', [AddressController::class, 'view']);
 Route::get('address/delete/{id}', [AddressController::class, 'delete']);
 
 

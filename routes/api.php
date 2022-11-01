@@ -13,11 +13,17 @@ use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\AddressController;
 use App\Http\Controllers\Api\ProductController;
+
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PromoCodeController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\CartController;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +46,7 @@ Route::post('/otb-check', [AuthController::class, 'check']);
 Route::post('/password-otb', [AuthController::class, 'password']);
 
 Route::post('change-password', [AuthController::class, 'changePassword']);
+
 
 
 
@@ -72,6 +79,12 @@ Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
 
 
 
+
+//Reviews
+Route::get('reviews', [ReviewController::class, 'list']);
+Route::post('review-create', [ReviewController::class, 'save']);
+Route::get('review/{id}', [ReviewController::class, 'view']);
+Route::post('review/delete/{id}', [ReviewController::class, 'delete']);
 
 
 

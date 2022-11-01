@@ -24,6 +24,7 @@ class OrderController extends Controller
         $order->user_id = $request->user_id;
         $order->supplier_id = $request->supplier_id;
         $order->note = !empty($request->note) ? $request->note : '';
+        $order->type = $request->type;
         $order->total = $request->total;
         $order->status = 'Pending';
         $order->payment_method = $request->payment_method;
@@ -122,16 +123,17 @@ class OrderController extends Controller
     {
         if ($request->has('id')) {
             $order = Order::where('id',$request->id)->first();
-            if(!$order){
-                return $this->returnError('Sorry! this order id is not exists');
+            if($order){
+                return $this->returnData('data', new OrderResource($order), '');
             }
-            return $this->returnData('data', new OrderResource($order), '');
-        }else{
-            $order = Order::where('number','like', '%' . $request->number . '%' )->first();
+            return $this->returnError('Sorry! No Available data');
+
+        }elseif ($request->has('number')) {
+            $order = Order::where('number','like', '%' . $request->number . '%' )->paginate(10);
             if(!$order){
-                return $this->returnError('Sorry! this order number is not exists');
+                return $this->returnError('Sorry! No Available data');
             }
-            return $this->returnData('data', new OrderResource($order), '');
+            return $this->returnData('data', OrderResource::collection($order), '');
         }
     }
 

@@ -55,4 +55,8 @@ class Order extends Model
         }
         return $year . '0001';
     }
+
+    public function codes(){
+        return $this->belongsToMany(PromoCode::class);
+    }
 }

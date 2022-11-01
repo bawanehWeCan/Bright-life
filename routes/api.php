@@ -1,19 +1,23 @@
 <?php
 
-use App\Http\Controllers\Api\AddressController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\RolesController;
-use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\ServiceController;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\CartController;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\Api\FaqController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\RolesController;
+use App\Http\Controllers\Api\WalletController;
+use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\PromoCodeController;
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,6 +99,18 @@ Route::get('list-order', [OrderController::class, 'list']);
 Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
 
+  //only those have manage_user permission will get access
+  Route::get('promo-code', [PromoCodeController::class, 'list']);
+  Route::post('promo-code-create', [PromoCodeController::class, 'save']);
+  Route::get('promo-code/{id}', [PromoCodeController::class, 'view']);
+  Route::get('promo-code/delete/{id}', [PromoCodeController::class, 'delete']);
+  Route::post('add-code-to-order', [PromoCodeController::class, 'addCodeOrder']);
+
+  Route::get('faq', [FaqController::class, 'list']);
+  Route::post('faq-create', [FaqController::class, 'save']);
+  Route::get('faq/{id}', [FaqController::class, 'view']);
+  Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
+
 
 
 
@@ -168,4 +184,11 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/permission/{id}', [PermissionController::class, 'show']);
         Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
     });
+
+    Route::get('wallet', [WalletController::class, 'list']);
+    Route::post('wallet-create', [WalletController::class, 'save']);
+    Route::get('wallet/{id}', [WalletController::class, 'view']);
+    Route::get('wallet/delete/{id}', [WalletController::class, 'delete']);
+
+    Route::post('transaction', [TransactionController::class, 'transaction']);
 });

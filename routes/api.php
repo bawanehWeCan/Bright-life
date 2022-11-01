@@ -61,12 +61,6 @@ Route::post('category-create', [CategoryController::class, 'store']);
 Route::get('category/{id}', [CategoryController::class, 'profile']);
 Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
 
-//only those have manage_user permission will get access
-Route::get('address', [AddressController::class, 'list']);
-Route::post('address-create', [AddressController::class, 'save']);
-Route::get('address/{id}', [AddressController::class, 'view']);
-Route::get('address/delete/{id}', [AddressController::class, 'delete']);
-
 
 // cat
 
@@ -184,6 +178,12 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/permission/{id}', [PermissionController::class, 'show']);
         Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
     });
+
+    //only those have manage_user permission will get access
+    Route::get('address', [AddressController::class, 'list']);
+    Route::post('address-create', [AddressController::class, 'save']);
+    Route::get('address/{id}', [AddressController::class, 'view']);
+    Route::get('address/delete/{id}', [AddressController::class, 'delete']);
 
     Route::get('wallet', [WalletController::class, 'list']);
     Route::post('wallet-create', [WalletController::class, 'save']);

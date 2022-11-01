@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\User;
+use App\Http\Resources\AddressItemResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -31,7 +32,7 @@ class OrderResource extends JsonResource
             'number'=>$this->number,
             'order_value'=>number_format($this->order_value,2),
             'user'=>new UserResource( User::findOrFail($this->user_id) ),
-            'address'=>new AddressResource( $this->user->address ),
+            'address'=>implode(", ", array_filter(collect(new AddressItemResource( $this->user->address ))->toArray())),
             'supplier_id'=>new UserResource( User::findOrFail($this->supplier_id) ),
             'products'=> CartItemResource::collection($this->products),
         ];

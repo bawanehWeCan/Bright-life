@@ -13,6 +13,7 @@ use App\Http\Requests\AddressRequest;
 use App\Repositorys\AddressRepository;
 use App\Http\Controllers\ApiController;
 use App\Http\Resources\AddressResource;
+use Exception;
 
 class AddressController extends ApiController
 {
@@ -34,11 +35,17 @@ class AddressController extends ApiController
      * @return void
      */
     public function save( AddressRequest $request ){
-        if(Auth::user()->address()->count() > 0){
-            return $this->returnError('Sorry! Failed to create address, You have one already!');
+
+        try {
+            if(Auth::user()->address()->count() > 0){
+                return $this->returnError('Sorry! Failed to create address, You have one already!');
+            }
+            $request['user_id'] = Auth::user()->id;
+            return $this->store( $request->all() );
+        } catch (Exception $e) {
+            dd( $e );
         }
-        $request['user_id'] = Auth::user()->id;
-        return $this->store( $request->all() );
+
     }
 
     public function user_address(){

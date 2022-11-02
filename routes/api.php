@@ -19,10 +19,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\PromoCodeController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\TransactionController;
-use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\ReviewController;
-use App\Http\Controllers\CartController;
-use Illuminate\Support\Facades\Auth;
 
 
 /*

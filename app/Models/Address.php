@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Address extends Model
 {
     use HasFactory;
 
     public $fillable = [
+        'city',
         'region',
         'street',
         'building_number',
@@ -23,4 +25,5 @@ class Address extends Model
     {
         return $this->belongsTo(User::class);
     }
+
 }

@@ -15,6 +15,7 @@ class AddressItemResource extends JsonResource
     public function toArray($request)
     {
         return [
+            $this->city,
             $this->region,
             $this->street,
             $this->building_number,

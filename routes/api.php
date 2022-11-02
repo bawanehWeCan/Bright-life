@@ -49,7 +49,7 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 
 
 //supp
-Route::post('/user-supplier', [AuthController::class, 'store']);
+Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
 Route::get('/suppliers', [AuthController::class, 'list']);
 Route::get('supplier/{id}', [AuthController::class, 'supprofile']);
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);

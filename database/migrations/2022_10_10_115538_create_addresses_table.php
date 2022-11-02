@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->text('name')->nullable();
             $table->text('region')->nullable();
             $table->text('street')->nullable();
             $table->text('building_number')->nullable();

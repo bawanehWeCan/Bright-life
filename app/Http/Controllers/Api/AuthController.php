@@ -154,7 +154,7 @@ class AuthController extends Controller
 
     public function list(Request $request)
     {
-        $users = User::where('type', 'suppliers')->get();
+        $users = User::where('type', 'supplier')->get();
 
         return $this->returnData('suppliers', SupplierResource::collection($users), 'succesfully');
     }

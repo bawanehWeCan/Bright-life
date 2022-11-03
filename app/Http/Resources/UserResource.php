@@ -21,6 +21,7 @@ class UserResource extends JsonResource
             'phone'     => $this->phone,
             'email'     => $this->email,
             'image'     => (string)$this->image,
+            'address'   =>new AddressResource( $this->address->first() ),
         ];
     }
 }

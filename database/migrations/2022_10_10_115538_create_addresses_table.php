@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('addresses', function (Blueprint $table) {
             $table->id();
+            $table->text('name')->nullable();
             $table->text('region')->nullable();
             $table->text('street')->nullable();
             $table->text('building_number')->nullable();
-            $table->text('floor_number')->nullable();
+            $table->text('floor')->nullable();
             $table->text('apartment_number')->nullable();
             $table->text('additional_tips')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

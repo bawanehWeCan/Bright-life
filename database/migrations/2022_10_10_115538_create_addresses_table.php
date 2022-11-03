@@ -19,7 +19,7 @@ return new class extends Migration
             $table->text('region')->nullable();
             $table->text('street')->nullable();
             $table->text('building_number')->nullable();
-            $table->text('floor_number')->nullable();
+            $table->text('floor')->nullable();
             $table->text('apartment_number')->nullable();
             $table->text('additional_tips')->nullable();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();

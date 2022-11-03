@@ -57,6 +57,8 @@ class UserRepository
         return $user->fresh();
     }
 
+
+
     /**
      * getUserByID function
      *

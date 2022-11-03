@@ -27,6 +27,11 @@ class ReviewController extends ApiController
         return $this->store( $request->all() );
     }
 
+    public function edit($id,Request $request){
+
+        return $this->update($id,$request->all());
+
+    }
 
 
 }

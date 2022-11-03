@@ -82,7 +82,7 @@ Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
 Route::get('reviews', [ReviewController::class, 'test']);
 
 Route::get('reviews', [ReviewController::class, 'list']);
-Route::post('review-create', [ReviewController::class, 'save']);
+
 
 Route::get('review/{id}', [ReviewController::class, 'view']);
 Route::post('review/delete/{id}', [ReviewController::class, 'delete']);

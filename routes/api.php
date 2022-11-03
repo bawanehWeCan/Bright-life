@@ -79,10 +79,9 @@ Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
 
 //Reviews
 Route::get('reviews', [ReviewController::class, 'test']);
-Route::post('review-create', [ReviewController::class, 'save']);
 Route::get('review/{id}', [ReviewController::class, 'view']);
 Route::post('review/delete/{id}', [ReviewController::class, 'delete']);
-Route::post('/review/edit/{id}', [ReviewController::class, 'edit']);
+
 
 
 
@@ -135,6 +134,10 @@ Route::post('users/search', [UserController::class, 'search']);
 
 
 Route::middleware(['auth:api'])->group(function () {
+
+
+    Route::post('/review/edit/{id}', [ReviewController::class, 'edit']);
+    Route::post('review-create', [ReviewController::class, 'save']);
 
 
     Route::get('cart', [ CartController::class, 'getCart' ]);

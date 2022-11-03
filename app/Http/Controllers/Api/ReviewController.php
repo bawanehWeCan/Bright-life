@@ -9,6 +9,7 @@ use App\Http\Requests\ReviewRequest;
 use Illuminate\Http\Request;
 use App\Repositories\Repository;
 use App\Http\Resources\ReviewResource;
+use Auth;
 
 class ReviewController extends ApiController
 {
@@ -24,11 +25,12 @@ class ReviewController extends ApiController
     }
 
     public function save(ReviewRequest $request ){
+        $request['user_id'] = Auth::user()->id;
         return $this->store( $request->all() );
     }
 
     public function edit($id,Request $request){
-
+        $request['user_id'] = Auth::user()->id;
         return $this->update($id,$request->all());
 
     }

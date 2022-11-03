@@ -23,7 +23,7 @@ class SupplierResource extends JsonResource
             'cover'     => (string)$this->cover,
             'location'     => (string)$this->location,
             'description'     => (string)$this->description,
-            'categories'     => CatResource::collection($this->categories->where('sub',1)),
+            'categories'     => CatResource::collection($this->categories),
             'products'     => ProductResource::collection($this->products),
         ];
     }

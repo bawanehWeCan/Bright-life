@@ -11,49 +11,60 @@ use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\ProductItem;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     use ResponseTrait;
     public function store(Request $request)
     {
-        $order = new Order();
-        $order->user_id = $request->user_id;
-        $order->supplier_id = $request->supplier_id;
-        $order->note = !empty($request->note) ? $request->note : '';
-        $order->total = $request->total;
-        $order->status = 'Pending';
-        $order->payment_method = $request->payment_method;
-        $order->lat = $request->lat;
-        $order->long = $request->long;
-        $order->tax = $request->tax;
-        $order->delivery_fee = $request->delivery_fee;
-        $order->discount = $request->discount;
-        $order->percentage = $request->percentage;
-        $order->order_value = (double)(($request->total + $request->tax + $request->delivery_fee  + $request->percentage) - $request->discount);
+        try {
+            DB::beginTransaction();
+            $order = new Order();
+            $order->user_id = $request->user_id;
+            $order->supplier_id = $request->supplier_id;
+            $order->note = !empty($request->note) ? $request->note : '';
+            $order->type = $request->type;
+            $order->total = $request->total;
+            $order->status = 'Pending';
+            $order->payment_method = $request->payment_method;
+            $order->tax = $request->tax;
+            $order->delivery_fee = $request->delivery_fee;
+            $order->discount = $request->discount;
+            $order->percentage = $request->percentage;
+            $order->order_value = (double)(($request->total + $request->tax + $request->delivery_fee  + $request->percentage) - $request->discount);
 
-        $order->save();
+            $order->save();
 
-        foreach ($request->products as $product) {
+            foreach ($request->products as $product) {
 
-            $cart_item = new CartItem();
-            $cart_item->product_id = $product['product_id'];
-            $cart_item->order_id = $order->id;
-            $cart_item->quantity = $product['quantity'];
-            $cart_item->size_id = $product['size_id'];
-            $cart_item->note = !empty($product['note']) ? $product['note'] : '';
-            $cart_item->price = $product['price'];
-            $cart_item->save();
+                $cart_item = new CartItem();
+                $cart_item->product_id = $product['product_id'];
+                $cart_item->order_id = $order->id;
+                $cart_item->quantity = $product['quantity'];
+                $cart_item->size_id = $product['size_id'];
+                $cart_item->note = !empty($product['note']) ? $product['note'] : '';
+                $cart_item->price = $product['price'];
+                $cart_item->save();
 
-            foreach ($product['extras'] as $extra) {
-                $product_item = new ProductItem();
-                $product_item->cart_item_id = $cart_item->id;
-                $product_item->extra_id = $extra['extra_id'];
-                $product_item->save();
+                foreach ($product['extras'] as $extra) {
+                    $product_item = new ProductItem();
+                    $product_item->cart_item_id = $cart_item->id;
+                    $product_item->extra_id = $extra['extra_id'];
+                    $product_item->save();
+                }
             }
+            DB::commit();
+        } catch (Exception $e) {
+            //throw $th;
+
+            DB::rollBack();
+
+            dd($e);
         }
 
         return $this->returnData('data', new OrderResource($order), '');
@@ -123,12 +134,26 @@ class OrderController extends Controller
     {
         return $this->returnData("Order",new OrderResource($order));
     }
-    public function orderSearch($value)
+    public function orderSearch(Request $request)
     {
-        $order = Order::where('number','like', '%' . $value . '%' )->first();
-        if(!$order){
-            return $this->returnError('Sorry! this order number is not exists');
+        if ($request->has('id')) {
+            $order = Order::where('id',$request->id)->first();
+            if($order){
+                return $this->returnData('data', new OrderResource($order), '');
+            }
+            return $this->returnError('Sorry! No Available data');
+
+        }elseif ($request->has('number')) {
+            $order = Order::where('number','like', '%' . $request->number . '%' )->paginate(10);
+            if(!$order){
+                return $this->returnError('Sorry! No Available data');
+            }
+            return $this->returnData('data', OrderResource::collection($order), '');
         }
-        return $this->returnData('data', new OrderResource($order), '');
+    }
+
+    public function list(){
+        $orders = Order::paginate(10);
+        return $this->returnData("data",OrderResource::collection($orders));
     }
 }

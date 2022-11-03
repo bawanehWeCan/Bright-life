@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductItemResource extends JsonResource
+class WalletResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,9 +16,11 @@ class ProductItemResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'=>$this->extra->id,
-            'name'=>$this->extra->name,
-            'price'=>number_format($this->extra->price,2),
+            'id'=>$this->id,
+            'name'=>$this->name,
+            'total'=>number_format($this->total,2),
+            'user'=> new UserResource( User::findOrFail($this->user_id) ),
+            'transactions'=>TransactionResource::collection($this->transactions),
         ];
     }
 }

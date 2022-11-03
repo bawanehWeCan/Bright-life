@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\User;
+use App\Http\Resources\AddressItemResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class OrderResource extends JsonResource
@@ -20,17 +21,18 @@ class OrderResource extends JsonResource
             'status'=>$this->status,
             'payment_method'=>$this->payment_method,
             'note'=>$this->note,
+            'type'=>$this->type,
             'lat'=>$this->lat,
             'long'=>$this->long,
-            'total'=>$this->total,
-            'tax'=>$this->tax,
-            'delivery_fee'=>$this->delivery_fee,
-            'discount'=>$this->discount,
-            'percentage'=>$this->percentage,
+            'total'=>number_format($this->total,2),
+            'tax'=>number_format($this->tax,2),
+            'delivery_fee'=>number_format($this->delivery_fee,2),
+            'discount'=>number_format($this->discount,2),
+            'percentage'=>number_format($this->percentage,2),
             'number'=>$this->number,
-            'order_value'=>$this->order_value,
+            'order_value'=>number_format($this->order_value,2),
             'user'=>new UserResource( User::findOrFail($this->user_id) ),
-            'supplier_id'=>new UserResource( User::findOrFail($this->supplier_id) ),
+            'supplier'=>new UserResource( User::findOrFail($this->supplier_id) ),
             'products'=> CartItemResource::collection($this->products),
         ];
     }

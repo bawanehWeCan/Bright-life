@@ -9,22 +9,7 @@ class Order extends Model
 {
     use HasFactory;
 
-    public $fillable = [
-        'user_id',
-        'supplier_id',
-        'status',
-        'payment_method',
-        'note',
-        'lat',
-        'long',
-        'total',
-        'tax',
-        'delivery_fee',
-        'discount',
-        'percentage',
-        'number',
-        'order_value',
-    ];
+    protected $guarded=[];
 
     public function products(){
         return $this->hasMany(CartItem::class);
@@ -54,5 +39,9 @@ class Order extends Model
             return $number + 1;
         }
         return $year . '0001';
+    }
+
+    public function codes(){
+        return $this->belongsToMany(PromoCode::class);
     }
 }

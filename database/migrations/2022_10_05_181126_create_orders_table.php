@@ -20,6 +20,7 @@ return new class extends Migration
             $table->enum('status',['Pending','On Delivery','Complete','Cancel']);
             $table->enum('payment_method',['Cash','Credit']);
             $table->text('note');
+            $table->text('type')->nullable();
             $table->text('lat')->nullable();
             $table->text('long')->nullable();
             $table->double('total');

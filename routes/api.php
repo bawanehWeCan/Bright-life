@@ -1,20 +1,26 @@
 <?php
 
-use App\Http\Controllers\Api\AddressController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\Api\RolesController;
-use App\Http\Controllers\Api\PermissionController;
-use App\Http\Controllers\Api\ServiceController;
-use App\Http\Controllers\Api\ProductController;
-use App\Http\Controllers\Api\OrderController;
-use App\Http\Controllers\Api\ReviewController;
-use App\Http\Controllers\CartController;
 use App\Models\Product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\Api\FaqController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\RolesController;
+use App\Http\Controllers\Api\WalletController;
+use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\ProductController;
+
+use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\PromoCodeController;
+use App\Http\Controllers\Api\PermissionController;
+use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\ReviewController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +49,7 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 
 
 //supp
-Route::post('/user-supplier', [AuthController::class, 'store']);
+Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
 Route::get('/suppliers', [AuthController::class, 'list']);
 Route::get('supplier/{id}', [AuthController::class, 'supprofile']);
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
@@ -59,12 +65,6 @@ Route::post('category-create', [CategoryController::class, 'store']);
 Route::get('category/{id}', [CategoryController::class, 'profile']);
 Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
 
-//only those have manage_user permission will get access
-Route::get('address', [AddressController::class, 'list']);
-Route::post('address-create', [AddressController::class, 'save']);
-Route::get('address/{id}', [AddressController::class, 'profile']);
-Route::get('address/delete/{id}', [AddressController::class, 'delete']);
-
 
 // cat
 
@@ -78,7 +78,12 @@ Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
 
 
 //Reviews
+
 Route::get('reviews', [ReviewController::class, 'test']);
+
+Route::get('reviews', [ReviewController::class, 'list']);
+Route::post('review-create', [ReviewController::class, 'save']);
+
 Route::get('review/{id}', [ReviewController::class, 'view']);
 Route::post('review/delete/{id}', [ReviewController::class, 'delete']);
 
@@ -98,11 +103,24 @@ Route::post('products/search', [ProductController::class, 'lookfor']);
 Route::post('make-order', [OrderController::class, 'store']);
 Route::post('update-order', [OrderController::class, 'update']);
 Route::get('view-order/{order}', [OrderController::class, 'view']);
-Route::get('search-order/{number?}', [OrderController::class, 'orderSearch']);
+Route::get('search-order', [OrderController::class, 'orderSearch']);
+Route::get('list-order', [OrderController::class, 'list']);
 
 
 Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
+
+  //only those have manage_user permission will get access
+  Route::get('promo-code', [PromoCodeController::class, 'list']);
+  Route::post('promo-code-create', [PromoCodeController::class, 'save']);
+  Route::get('promo-code/{id}', [PromoCodeController::class, 'view']);
+  Route::get('promo-code/delete/{id}', [PromoCodeController::class, 'delete']);
+  Route::post('add-code-to-order', [PromoCodeController::class, 'addCodeOrder']);
+
+  Route::get('faq', [FaqController::class, 'list']);
+  Route::post('faq-create', [FaqController::class, 'save']);
+  Route::get('faq/{id}', [FaqController::class, 'view']);
+  Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
 
 
 
@@ -181,4 +199,17 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/permission/{id}', [PermissionController::class, 'show']);
         Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
     });
+
+    //only those have manage_user permission will get access
+    Route::get('address', [AddressController::class, 'list']);
+    Route::post('address-create', [AddressController::class, 'save']);
+    Route::get('address/{id}', [AddressController::class, 'view']);
+    Route::get('address/delete/{id}', [AddressController::class, 'delete']);
+
+    Route::get('wallet', [WalletController::class, 'list']);
+    Route::post('wallet-create', [WalletController::class, 'save']);
+    Route::get('wallet/{id}', [WalletController::class, 'view']);
+    Route::get('wallet/delete/{id}', [WalletController::class, 'delete']);
+
+    Route::post('transaction', [TransactionController::class, 'transaction']);
 });

@@ -13,16 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('addresses', function (Blueprint $table) {
+        Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->text('name')->nullable();
-            $table->text('region')->nullable();
-            $table->text('street')->nullable();
-            $table->text('building_number')->nullable();
-            $table->text('floor')->nullable();
-            $table->text('apartment_number')->nullable();
-            $table->text('additional_tips')->nullable();
+            $table->foreignId('wallet_id')->constrained('wallets')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->enum('type',['Deposite','Withdraw']);
+            $table->enum('status',['Processing','success','Failed'])->default('Processing');
+            $table->double('amount')->default(0);
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('addresses');
+        Schema::dropIfExists('transactions');
     }
 };

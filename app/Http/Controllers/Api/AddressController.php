@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Resources\AddressResource;
+use App\Models\Size;
+use App\Models\Extra;
+use App\Models\Address;
+use App\Repositories\Repository;
+use App\Repositorys\SizeRepository;
+use App\Repositorys\ExtraRepository;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\AddressRequest;
 use App\Repositorys\AddressRepository;
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\AddressRequest;
-use App\Models\Address;
-use App\Models\Extra;
-use App\Repositorys\ExtraRepository;
-use App\Models\Size;
-use App\Repositorys\SizeRepository;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\AddressResource;
+use Exception;
 
 class AddressController extends ApiController
 {
@@ -25,7 +27,7 @@ class AddressController extends ApiController
     {
         $this->resource = AddressResource::class;
         $this->model = app( Address::class );
-        $this->repositry =  new AddressRepository( $this->model ) ;
+        $this->repositry =  new Repository( $this->model ) ;
     }
 
     /**
@@ -33,15 +35,25 @@ class AddressController extends ApiController
      * @return void
      */
     public function save( AddressRequest $request ){
-        return $this->store( $request );
+
+        try {
+            if(Auth::user()->address()->count() > 0){
+                return $this->returnError('Sorry! Failed to create address, You have one already!');
+            }
+            $request['user_id'] = Auth::user()->id;
+            return $this->store( $request->all() );
+        } catch (Exception $e) {
+            dd( $e );
+        }
+
     }
 
     public function user_address(){
-        $address = Auth::user()->address;
+        $addresses = Auth::user()->addresses;
 
 
-        if ($address) {
-            return $this->returnData('data', new $this->resource( $address ), __('Get  succesfully'));
+        if ($addresses) {
+            return $this->returnData('data', new $this->resource( $addresses ), __('Get  succesfully'));
         }
 
         return $this->returnError(__('Sorry! Failed to get !'));

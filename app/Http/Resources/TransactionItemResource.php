@@ -2,9 +2,10 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class TransactionItemResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,13 +17,13 @@ class ProductResource extends JsonResource
     {
         return [
             'id'=>$this->id,
-            'name'=>$this->name,
-            'image'=>$this->image,
-            'price'=>number_format($this->price,2),
             'type'=>$this->type,
-            'categorise'=>'name, name2',
-            'sizes'=>$this->sizes,
-            'extras'=>$this->extras,
+            'status'=>$this->status,
+            'amount'=>number_format($this->amount,2),
+            'wallet_id'=>$this->wallet_id,
+            'wallet_name'=>$this->wallet->name,
+            'wallet_total'=>number_format($this->wallet->total,2),
+            'user'=>new UserResource(User::findOrFail($this->user_id)),
         ];
     }
 }

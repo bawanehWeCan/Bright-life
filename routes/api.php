@@ -91,6 +91,8 @@ Route::get('products', [ProductController::class, 'pagination']);
 Route::post('products-create', [ProductController::class, 'save']);
 Route::get('products/{id}', [ProductController::class, 'view']);
 Route::get('products/delete/{id}', [ProductController::class, 'delete']);
+Route::post('products/search', [ProductController::class, 'lookfor']);
+
 
 
 Route::post('make-order', [OrderController::class, 'store']);
@@ -138,7 +140,7 @@ Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
 
 
-
+Route::post('users/search', [UserController::class, 'search']);
 
 
 

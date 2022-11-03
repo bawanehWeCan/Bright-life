@@ -11,6 +11,8 @@ use App\Models\Extra;
 use App\Repositorys\ExtraRepository;
 use App\Models\Size;
 use App\Repositorys\SizeRepository;
+use Illuminate\Http\Request;
+
 
 class ProductController extends ApiController
 {
@@ -70,5 +72,11 @@ class ProductController extends ApiController
 
 
     // }
+
+    public function lookfor(ProductRequest $request){
+
+        return $this->search('name',$request->keyword);
+
+    }
 
 }

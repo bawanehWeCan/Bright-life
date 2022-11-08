@@ -25,7 +25,7 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
             $order = new Order();
-            $order->user_id = $request->user_id;
+            $order->user_id = Auth::user()->id;
             $order->supplier_id = $request->supplier_id;
             $order->note = !empty($request->note) ? $request->note : '';
             $order->type = $request->type;
@@ -46,25 +46,38 @@ class OrderController extends Controller
                 $cart_item->product_id = $product['product_id'];
                 $cart_item->order_id = $order->id;
                 $cart_item->quantity = $product['quantity'];
-                $cart_item->size_id = $product['size_id'];
                 $cart_item->note = !empty($product['note']) ? $product['note'] : '';
                 $cart_item->price = $product['price'];
                 $cart_item->save();
 
-                foreach ($product['extras'] as $extra) {
+
+
+                foreach ($product['groups'] as $group ) {
+
+                    //dd( $group );
                     $product_item = new ProductItem();
+                    $product_item->group_id = $group['group_id'];
+                    $product_item->group_item_id = $group['item_id'];
                     $product_item->cart_item_id = $cart_item->id;
-                    $product_item->extra_id = $extra['extra_id'];
                     $product_item->save();
                 }
+
+
             }
+
+
+
+
+
+
+
             DB::commit();
         } catch (Exception $e) {
-            //throw $th;
+
 
             DB::rollBack();
 
-            dd($e);
+
         }
 
         return $this->returnData('data', new OrderResource($order), '');

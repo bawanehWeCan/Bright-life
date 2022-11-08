@@ -79,7 +79,7 @@ class Repository{
     /**
      * @return void
      */
-    function save( $data )
+    public function save( $data )
     {
         $model = $this->model->create( $data );
         return $model->fresh();

@@ -8,8 +8,11 @@ use App\Http\Controllers\ApiController;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\Extra;
+use App\Models\Group;
+use App\Models\GroupItem;
 use App\Repositorys\ExtraRepository;
 use App\Models\Size;
+use App\Repositories\Repository;
 use App\Repositorys\SizeRepository;
 
 class ProductController extends ApiController
@@ -37,25 +40,28 @@ class ProductController extends ApiController
 
     public function store( $data )
     {
-        $extraRepo  = new ExtraRepository( app(Extra::class) );
-        $sizeRepo   = new SizeRepository( app(Size::class) );
-        $model = $this->repositry->save( $data );
 
-        foreach ($data['sizes'] as  $value) {
-            $value['product_id'] = $model->id;
-            $extra = $extraRepo->save( $value );
+
+        $product = $this->repositry->save( $data );
+
+        $groupRepo      = new Repository( app( Group::class ) );
+        $groupItemRepo  = new Repository( app( GroupItem::class ) );
+
+        foreach ($data['groups'] as $group) {
+            $group['product_id'] = $product->id;
+            $model = $groupRepo->save( $group );
+
+            // dd( $model );
+
+            foreach ($group['items'] as $item) {
+                $item['group_id'] = $model['id'];
+                $groupItemRepo->save($item);
+            }
         }
 
-        foreach ($data['extras'] as  $value) {
-            $value['product_id'] = $model->id;
-            $extra = $sizeRepo->save( $value );
-        }
 
-
-
-
-        if ($model) {
-            return $this->returnData( 'data' , new $this->resource( $model ), __('Succesfully'));
+        if ($product) {
+            return $this->returnData( 'data' , new $this->resource( $product ), __('Succesfully'));
         }
 
         return $this->returnError(__('Sorry! Failed to create !'));

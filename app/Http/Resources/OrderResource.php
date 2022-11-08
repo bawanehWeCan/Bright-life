@@ -32,8 +32,7 @@ class OrderResource extends JsonResource
             'number'=>$this->number,
             'order_value'=>number_format($this->order_value,2),
             'user'=>new UserResource( User::findOrFail($this->user_id) ),
-            'address'=>new AddressItemResource( $this->user->address->first() ),
-            'supplier_id'=>new UserResource( User::findOrFail($this->supplier_id) ),
+            'supplier'=>new UserResource( User::findOrFail($this->supplier_id) ),
             'products'=> CartItemResource::collection($this->products),
         ];
     }

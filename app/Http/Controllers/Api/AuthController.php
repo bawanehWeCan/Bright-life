@@ -7,6 +7,7 @@ use App\Http\Requests\AuthRequest;
 use App\Http\Requests\PasswordChangeRequest;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Http\Requests\UserRequest;
+use App\Http\Resources\CatResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SupplierResource;
 use App\Http\Resources\UserResource;
@@ -296,11 +297,16 @@ class AuthController extends Controller
     public function addCategory( Request $request ){
 
         $category   = Category::find( $request->category_id );
-        $restaurant = User::find( $request->supplier_id );
+        $supplier = User::where('type','supplier')->find( $request->supplier_id );
+        if ($supplier->categories->contains($category)) {
+            return $this->returnError("This Category is added To this supplier before");
+        }
+         $created = $supplier->categories()->save($category);
+         $supplier->categories->push($created);
 
-        $restaurant->categories()->save($category);
 
-        return $this->returnData( 'data' , SupplierResource::make( $restaurant ), __('Succesfully'));
+        return $this->returnData( 'data' , new SupplierResource( $supplier ), __('Succesfully'));
+
 
     }
 
@@ -310,7 +316,6 @@ class AuthController extends Controller
         $restaurant = Product::find( $request->product_id );
 
         $restaurant->categories()->save($category);
-
         return $this->returnData( 'data' , ProductResource::make( $restaurant ), __('Succesfully'));
 
     }

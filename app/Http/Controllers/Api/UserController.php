@@ -8,6 +8,9 @@ use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Repositorys\UserRepository;
 use App\Traits\ResponseTrait;
+use App\Http\Resources\SupplierResource;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class UserController extends Controller
 {
@@ -104,4 +107,20 @@ class UserController extends Controller
 
         return $this->returnError(__('Sorry! User not found'));
     }
+
+    public function search(Request $request ){
+
+        $users = User::where('name', 'like', '%' . $request->input('keyword') . '%' )->where('type','supplier')->get();
+
+
+
+        if($users){
+
+            return $this->returnData( 'data' , SupplierResource::collection( $users ), __('Succesfully'));
+        }
+
+        return $this->returnError(__('Sorry! Failed to get !'));
+
+        }
+
 }

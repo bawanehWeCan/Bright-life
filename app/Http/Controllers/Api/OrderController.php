@@ -126,6 +126,7 @@ class OrderController extends Controller
 
     }
 
+
     public function search( Request $request ){
 
         $users = User::where('name', 'like', '%' . $request->input('number') . '%' )->where('type','suppliers')->get();
@@ -136,6 +137,8 @@ class OrderController extends Controller
 
             return $this->returnData( 'data' , SupplierResource::collection( $users ), __('Succesfully'));
         }
+
+        return $this->returnError(__('Sorry! Failed to get !'));
 
 
     }

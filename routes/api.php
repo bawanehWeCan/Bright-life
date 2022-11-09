@@ -20,7 +20,7 @@ use App\Http\Controllers\Api\PromoCodeController;
 use App\Http\Controllers\Api\PermissionController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\ReviewController;
-
+use App\Http\Controllers\Api\SliderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +126,12 @@ Route::get('faq', [FaqController::class, 'list']);
 Route::post('faq-create', [FaqController::class, 'save']);
 Route::get('faq/{id}', [FaqController::class, 'view']);
 Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
+
+
+Route::get('sliders', [SliderController::class, 'list']);
+Route::post('slider-create', [SliderController::class, 'save']);
+Route::get('slider/{id}', [SliderController::class, 'view']);
+Route::get('slider/delete/{id}', [SliderController::class, 'delete']);
 
 
 

@@ -25,6 +25,8 @@ class AddressResource extends JsonResource
             'apartment_number'=>$this->apartment_number,
             'additional_tips'=>$this->additional_tips,
             'user_id'=>$this->user_id,
+            'long'=>$this->long,
+            'lat'=>$this->lat,
         ];
     }
 }

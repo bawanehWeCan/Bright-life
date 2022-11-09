@@ -33,6 +33,11 @@ use App\Http\Controllers\Api\ReviewController;
 |
 */
 
+
+
+
+
+
 //Auth
 Route::post('login', [AuthController::class, 'login']);
 
@@ -110,17 +115,17 @@ Route::get('list-order', [OrderController::class, 'list']);
 Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
 
-  //only those have manage_user permission will get access
-  Route::get('promo-code', [PromoCodeController::class, 'list']);
-  Route::post('promo-code-create', [PromoCodeController::class, 'save']);
-  Route::get('promo-code/{id}', [PromoCodeController::class, 'view']);
-  Route::get('promo-code/delete/{id}', [PromoCodeController::class, 'delete']);
-  Route::post('add-code-to-order', [PromoCodeController::class, 'addCodeOrder']);
+//only those have manage_user permission will get access
+Route::get('promo-code', [PromoCodeController::class, 'list']);
+Route::post('promo-code-create', [PromoCodeController::class, 'save']);
+Route::get('promo-code/{id}', [PromoCodeController::class, 'view']);
+Route::get('promo-code/delete/{id}', [PromoCodeController::class, 'delete']);
+Route::post('add-code-to-order', [PromoCodeController::class, 'addCodeOrder']);
 
-  Route::get('faq', [FaqController::class, 'list']);
-  Route::post('faq-create', [FaqController::class, 'save']);
-  Route::get('faq/{id}', [FaqController::class, 'view']);
-  Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
+Route::get('faq', [FaqController::class, 'list']);
+Route::post('faq-create', [FaqController::class, 'save']);
+Route::get('faq/{id}', [FaqController::class, 'view']);
+Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
 
 
 
@@ -154,20 +159,30 @@ Route::post('users/search', [UserController::class, 'search']);
 Route::middleware(['auth:api'])->group(function () {
 
 
+
+    // Address
+    Route::get('address', [AddressController::class, 'pagination']);
+    Route::post('address-create', [AddressController::class, 'save']);
+    Route::get('address/{id}', [AddressController::class, 'view']);
+    Route::get('address/delete/{id}', [AddressController::class, 'delete']);
+    Route::get('my-address', [AddressController::class, 'user_address']);
+
+
+
     Route::post('/review/edit/{id}', [ReviewController::class, 'edit']);
     Route::post('review-create', [ReviewController::class, 'save']);
 
 
-    Route::get('cart', [ CartController::class, 'getCart' ]);
+    Route::get('cart', [CartController::class, 'getCart']);
 
-    Route::post('cart',  [ CartController::class, 'add' ]);
+    Route::post('cart',  [CartController::class, 'add']);
 
-    Route::post('update-cart', [ CartController::class, 'update' ]);
+    Route::post('update-cart', [CartController::class, 'update']);
 
 
     Route::get('my-orders', [OrderController::class, 'myOrders']);
     Route::get('my-products', [OrderController::class, 'myProducts']);
-    Route::get('my-address', [AddressController::class, 'user_address']);
+
 
     Route::get('logout', [AuthController::class, 'logout']);
 
@@ -200,11 +215,6 @@ Route::middleware(['auth:api'])->group(function () {
         Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
     });
 
-    //only those have manage_user permission will get access
-    Route::get('address', [AddressController::class, 'list']);
-    Route::post('address-create', [AddressController::class, 'save']);
-    Route::get('address/{id}', [AddressController::class, 'view']);
-    Route::get('address/delete/{id}', [AddressController::class, 'delete']);
 
     Route::get('wallet', [WalletController::class, 'list']);
     Route::post('wallet-create', [WalletController::class, 'save']);

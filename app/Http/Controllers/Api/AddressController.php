@@ -37,9 +37,6 @@ class AddressController extends ApiController
     public function save( AddressRequest $request ){
 
         try {
-            if(Auth::user()->address()->count() > 0){
-                return $this->returnError('Sorry! Failed to create address, You have one already!');
-            }
             $request['user_id'] = Auth::user()->id;
             return $this->store( $request->all() );
         } catch (Exception $e) {

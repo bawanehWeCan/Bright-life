@@ -46,11 +46,10 @@ class AddressController extends ApiController
     }
 
     public function user_address(){
-        $addresses = Auth::user()->addresses;
+        $address = Auth::user()->address;
 
-        dd( $addresses );
-        if ($addresses) {
-            return $this->returnData('data', new $this->resource( $addresses ), __('Get  succesfully'));
+        if ($address) {
+            return $this->returnData('data',  $this->resource::collection( $address ), __('Get  succesfully'));
         }
 
         return $this->returnError(__('Sorry! Failed to get !'));

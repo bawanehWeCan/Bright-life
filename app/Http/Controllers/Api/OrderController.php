@@ -47,7 +47,7 @@ class OrderController extends Controller
                 $cart_item->order_id = $order->id;
                 $cart_item->quantity = $product['quantity'];
                 $cart_item->note = !empty($product['note']) ? $product['note'] : '';
-                $cart_item->note = !empty($product['area']) ? $product['area'] : '';
+                $cart_item->area = !empty($product['area']) ? $product['area'] : '';
                 $cart_item->price = $product['price'];
                 $cart_item->save();
 

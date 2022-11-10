@@ -105,7 +105,7 @@ Route::post('products/search', [ProductController::class, 'lookfor']);
 
 
 
-Route::post('make-order', [OrderController::class, 'store']);
+Route::post('make-order', [OrderController::class, 'store']); 
 Route::post('update-order', [OrderController::class, 'update']);
 Route::get('view-order/{order}', [OrderController::class, 'view']);
 Route::get('search-order', [OrderController::class, 'orderSearch']);

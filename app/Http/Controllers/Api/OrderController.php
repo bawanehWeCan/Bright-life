@@ -47,6 +47,7 @@ class OrderController extends Controller
                 $cart_item->order_id = $order->id;
                 $cart_item->quantity = $product['quantity'];
                 $cart_item->note = !empty($product['note']) ? $product['note'] : '';
+                $cart_item->note = !empty($product['area']) ? $product['area'] : '';
                 $cart_item->price = $product['price'];
                 $cart_item->save();
 
@@ -90,23 +91,7 @@ class OrderController extends Controller
         $order->long = $request->long;
         $order->save();
 
-        // $stuRef = app('firebase.firestore')->database()->collection('orders')->newDocument();
-        // $stuRef->set([
-        //     'user_id' => $order->user_id,
-        //     'restaurant_id' => $order->restaurant_id,
-        //     'restaurant_name' => $order->restaurant->name,
-        //     'status' => $order->status,
-        //     'note' => $order->note,
-        //     'lat' => $order->lat,
-        //     'long' => $order->long,
-        //     'total' => $order->total,
-        //     'driver_id' => 0,
-        //     'res_lat' => $order->restaurant->lat,
-        //     'res_long' => $order->restaurant->lng,
-        //     'res_zone' => $order->restaurant->zone,
-        //     'created_at' => $order->created_at,
-        //     'position' => array( 'geohas'=>'alaa','geopoint' => array( 'aaa','aaa' ) ),
-        // ]);
+
 
         return $this->returnData('data', new OrderResource($order), '');
     }

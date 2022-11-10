@@ -19,5 +19,6 @@ class Slider extends Model
             $file->move(public_path('img/users/'), $filename);
             $this->attributes['image'] =  'img/users/'.$filename;
         }
+
     }
 }

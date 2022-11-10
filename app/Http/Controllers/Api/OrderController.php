@@ -40,8 +40,6 @@ class OrderController extends Controller
 
             $order->save();
 
-            dd( $order );
-
             foreach ($request->products as $product) {
 
                 $cart_item = new CartItem();

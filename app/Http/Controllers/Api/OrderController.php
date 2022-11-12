@@ -25,7 +25,7 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
             $order = new Order();
-            $order->user_id = $request->id;
+            $order->user_id = $request->user_id;
             $order->supplier_id = $request->supplier_id;
             $order->note = !empty($request->note) ? $request->note : '';
             $order->type = $request->type;

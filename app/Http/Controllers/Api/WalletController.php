@@ -38,9 +38,9 @@ class WalletController extends ApiController
      * @param [type] $id
      * @return void
      */
-    public function view($id)
+    public function get()
     {
-        $model = $this->repositry->getByID($id);
+        $model = Auth::user()->wallet;
 
         if (!$model) {
             $data['name'] = 'Wallet';

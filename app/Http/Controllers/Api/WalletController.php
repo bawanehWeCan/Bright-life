@@ -30,4 +30,27 @@ class WalletController extends ApiController
         return $this->store( $request->all() );
 
     }
+
+
+       /**
+     * profile function
+     *
+     * @param [type] $id
+     * @return void
+     */
+    public function view($id)
+    {
+        $model = $this->repositry->getByID($id);
+
+        if (!$model) {
+            $data['name'] = 'Wallet';
+            $data['total'] = 0;
+            $data['user_id'] = Auth::user()->id;
+            return $this->store( $data );
+        }
+        return $this->returnData('data', new $this->resource( $model ), __('Get  succesfully'));
+
+        return $this->returnError(__('Sorry! Failed to get !'));
+    }
+
 }

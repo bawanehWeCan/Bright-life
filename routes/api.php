@@ -111,6 +111,8 @@ Route::post('update-order', [OrderController::class, 'update']);
 Route::get('view-order/{order}', [OrderController::class, 'view']);
 Route::get('search-order', [OrderController::class, 'orderSearch']);
 Route::get('list-order', [OrderController::class, 'list']);
+Route::post('order/review', [OrderController::class, 'addReviewToOrder']);
+
 
 
 Route::post('suppliers/search/{value}', [OrderController::class, 'search']);

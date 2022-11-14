@@ -166,6 +166,9 @@ class OrderController extends Controller
             return $this->returnError(__('Error! something has been wrong'));
         }
 
+        $request['reviewable_id'] = $request->order_id;
+        $request['reviewable_type'] = get_class($order);
+        unset($request['order_id']);
         $order_with_review = $order->review()->create($request->all());
         $order->review->push($order_with_review);
         return $this->returnData('data', new OrderResource($order), '');

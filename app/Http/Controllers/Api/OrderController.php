@@ -170,7 +170,8 @@ class OrderController extends Controller
         $request['reviewable_type'] = get_class($order);
         unset($request['order_id']);
         $order_with_review = $order->review()->create($request->all());
-        $order->review->push($order_with_review);
+
+        $order->review = $order_with_review;
         return $this->returnData('data', new OrderResource($order), '');
     }
 }

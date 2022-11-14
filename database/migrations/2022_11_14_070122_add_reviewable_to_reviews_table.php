@@ -14,10 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('reviews', function (Blueprint $table) {
-
-
-            $table->integer('order_id')->nullable();
-
+            $table->morphs('reviewable');
         });
     }
 
@@ -29,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->dropColumn('order_id');
+            $table->dropMorphs('reviewable');
         });
     }
 };

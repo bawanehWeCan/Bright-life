@@ -46,7 +46,7 @@ class Order extends Model
     }
 
     public function review(){
-        return $this->HasOne(Review::class);
+        return $this->morphOne(Review::class,'reviewable');
     }
 
 

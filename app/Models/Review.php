@@ -20,8 +20,9 @@ class Review extends Model
         return $this->belongsTo(User::class,'supplier_id')->where('type','supplier');
     }
 
-    public function order(){
-        return $this->belongsTo(Order::class);
+    public function reviewable()
+    {
+        return $this->morphTo();
     }
 
 }

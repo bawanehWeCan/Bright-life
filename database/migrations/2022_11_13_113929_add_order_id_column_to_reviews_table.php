@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('reviews', function (Blueprint $table) {
-            $table->foreignId('order_id')->constrained('orders')->nullOnDelete()->after('supplier_id')->nullable();
+            $table->integer('order_id')->nullable();
         });
     }
 

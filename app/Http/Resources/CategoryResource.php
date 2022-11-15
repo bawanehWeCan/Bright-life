@@ -23,7 +23,7 @@ class CategoryResource extends JsonResource
             'type'=>$this->type,
             'best'=>SupplierResource::collection(User::with([ 'review'])
             ->leftJoin('reviews', 'reviews.supplier_id', '=', 'users.id')
-            ->select(['products.*',
+            ->select(['users.*',
                 DB::raw('AVG(reviews.points) as ratings_average')
                 ])
             ->orderBy('ratings_average', 'desc')

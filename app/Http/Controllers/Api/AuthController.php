@@ -355,15 +355,14 @@ class AuthController extends Controller
     public function supprofile($id)
     {
         $user = User::find($id);
-        // $roles = $user->getRoleNames();
-        // $permission = $user->getAllPermissions();
-
-        // return response([
-        //     'user' => $user,
-        //     'success' => 1,
-        // ]);
-
 
         return $this->returnData('user', SupplierResource::make($user), 'successful');
+    }
+
+    public function bestSuppliers(){
+        $users = User::where('best',1)->get();
+
+        return $this->returnData('user', SupplierResource::collection($users), 'successful');
+
     }
 }

@@ -40,6 +40,7 @@ use App\Http\Controllers\Api\SliderController;
 
 //Auth
 Route::post('login', [AuthController::class, 'login']);
+Route::post('sociallogin', [AuthController::class, 'sociallogin']);
 
 Route::post('/user-reg', [AuthController::class, 'store']);
 

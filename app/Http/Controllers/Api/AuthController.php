@@ -302,6 +302,49 @@ class AuthController extends Controller
     }
 
 
+    public function sociallogin(Request $request)
+    {
+
+        $user = User::where([
+            ['email', $request->email]
+        ])->first();
+
+        if ($user ) {
+
+            $accessToken = $user->createToken('authToken')->accessToken;
+
+            //$user->token = $request->token;
+            $user->save();
+
+            return response(['status' => true,'code' => 200,'msg' => 'success', 'data' => [
+                'token' => $accessToken,
+                'user' => $user
+            ]]);
+        }
+
+
+        $user = User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            'image'=>'',
+            'password' => Hash::make('1234'),
+        ]);
+
+        // assign new role to the user
+        // $role = $user->assignRole('Member');
+
+
+        $accessToken = $user->createToken('authToken')->accessToken;
+
+        return response(['status' => true,'code' => 200,'msg' => 'success', 'data' => [
+            'token' => $accessToken,
+            'user' => $user
+        ]]);
+
+    }
+
+
+
     public function logout(Request $request)
     {
         $user = Auth::user()->token();

@@ -30,7 +30,7 @@ class PasswordChangeRequest extends FormRequest
     public function rules()
     {
         return [
-            'old_password' => 'required|string',
+
             'password' => 'required|string',
         ];
     }
@@ -40,7 +40,7 @@ class PasswordChangeRequest extends FormRequest
         $errors = (new ValidationException($validator))->errors();
 
         throw new HttpResponseException(
-            
+
             $this->returnValidationError($validator,422)
         );
     }

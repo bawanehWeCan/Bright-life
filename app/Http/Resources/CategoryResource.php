@@ -19,6 +19,7 @@ class CategoryResource extends JsonResource
             'name'=>$this->name,
             'image'=>$this->image,
             'type'=>$this->type,
+            'best'=>SupplierResource::collection($this->suppliers->orderBy('points')),
             'suppliers'=>SupplierResource::collection($this->suppliers),
         ];
     }

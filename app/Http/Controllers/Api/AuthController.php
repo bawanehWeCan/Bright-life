@@ -365,4 +365,11 @@ class AuthController extends Controller
         return $this->returnData('user', SupplierResource::collection($users), 'successful');
 
     }
+
+
+    function bestRated(){
+        $users = User::where('type', 'supplier')->orderBy('points','desc')->get();
+
+        return $this->returnData('user', SupplierResource::collection($users), 'successful');
+    }
 }

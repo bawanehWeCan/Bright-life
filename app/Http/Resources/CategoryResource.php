@@ -21,16 +21,12 @@ class CategoryResource extends JsonResource
             'name'=>$this->name,
             'image'=>$this->image,
             'type'=>$this->type,
-            'best'=>SupplierResource::collection(User::with([ 'review'])
-            ->leftJoin('reviews', 'reviews.supplier_id', '=', 'users.id')
-            ->select(['users.*',
-                DB::raw('AVG(reviews.points) as ratings_average')
-                ])
-            ->orderBy('ratings_average', 'desc')
-            ->get()),
+            'best'=>SupplierResource::collection($this->suppliers),
             'suppliers'=>SupplierResource::collection($this->suppliers),
         ];
     }
 }
+
+
 
 

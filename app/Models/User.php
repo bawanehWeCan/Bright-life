@@ -107,7 +107,7 @@ class User extends Authenticatable
     }
 
     public function points(){
-        return $this->reviews->avg('points');
+        return $this->ratings->avg('points');
     }
 
 }

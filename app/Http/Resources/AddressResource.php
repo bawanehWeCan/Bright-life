@@ -21,12 +21,13 @@ class AddressResource extends JsonResource
             'region'=>$this->region,
             'street'=>$this->street,
             'building_number'=>$this->building_number,
-            'floor_number'=>$this->floor_number,
+            'floor_number'=>$this->floor,
             'apartment_number'=>$this->apartment_number,
             'additional_tips'=>$this->additional_tips,
             'user_id'=>$this->user_id,
             'long'=>$this->long,
             'lat'=>$this->lat,
+            'phone_number'=>$this->user->phone,
         ];
     }
 }

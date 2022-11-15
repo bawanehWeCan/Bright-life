@@ -70,10 +70,10 @@ class AuthController extends Controller
         }
     }
 
-    public function countries()
-    {
-        return $this->returnData('countries', Countries::getList('en', 'json'), 'succesfully');
-    }
+    // public function countries()
+    // {
+    //     return $this->returnData('countries', Countries::getList('en', 'json'), 'succesfully');
+    // }
 
     public function store(UserRequest $request)
     {

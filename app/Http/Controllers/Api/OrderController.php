@@ -154,4 +154,24 @@ class OrderController extends Controller
         $orders = Order::paginate(10);
         return $this->returnData("data",OrderResource::collection($orders));
     }
+
+    public function addReviewToOrder(Request $request)
+    {
+
+        $user = User::where('type','user')->find($request->user_id);
+        $supplier = User::where('type','supplier')->find($request->supplier_id);
+
+        $order = Order::where('user_id', $request->user_id)->where('supplier_id',$request->supplier_id)->find($request->order_id);
+        if (!$order || !empty($order->review)) {
+            return $this->returnError(__('Error! something has been wrong'));
+        }
+
+        $request['reviewable_id'] = $request->order_id;
+        $request['reviewable_type'] = get_class($order);
+        unset($request['order_id']);
+        $order_with_review = $order->review()->create($request->all());
+
+        $order->review = $order_with_review;
+        return $this->returnData('data', new OrderResource($order), '');
+    }
 }

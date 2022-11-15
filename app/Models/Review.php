@@ -13,11 +13,16 @@ class Review extends Model
 
 
     public function user(){
-        return $this->belongsTo(User::class)->where('type','user');
+        return $this->belongsTo(User::class,'user_id')->where('type','user');
     }
 
     public function supplier(){
-        return $this->belongsTo(User::class,'supplier_id')->where('type','user');;
+        return $this->belongsTo(User::class,'supplier_id')->where('type','supplier');
+    }
+
+    public function reviewable()
+    {
+        return $this->morphTo();
     }
 
 }

@@ -34,6 +34,7 @@ class OrderResource extends JsonResource
             'user'=>new UserResource( User::findOrFail($this->user_id) ),
             'supplier'=>new UserResource( User::findOrFail($this->supplier_id) ),
             'products'=> CartItemResource::collection($this->products),
+            'review'=> new ReviewResource($this->review),
         ];
     }
 }

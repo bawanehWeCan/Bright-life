@@ -44,4 +44,10 @@ class Order extends Model
     public function codes(){
         return $this->belongsToMany(PromoCode::class);
     }
+
+    public function review(){
+        return $this->morphOne(Review::class,'reviewable');
+    }
+
+
 }

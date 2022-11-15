@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CategoryResource extends JsonResource
@@ -19,7 +20,7 @@ class CategoryResource extends JsonResource
             'name'=>$this->name,
             'image'=>$this->image,
             'type'=>$this->type,
-            'best'=>SupplierResource::collection($this->suppliers->orderBy('points')),
+            'best'=>SupplierResource::collection(User::where('type', 'supplier')->orderBy('points','desc')->get()),
             'suppliers'=>SupplierResource::collection($this->suppliers),
         ];
     }

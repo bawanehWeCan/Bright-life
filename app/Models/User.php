@@ -102,6 +102,10 @@ class User extends Authenticatable
         return $this->hasMany(Review::class,'user_id');
     }
 
+    public function ratings(){
+        return $this->hasMany(Review::class,'supplier_id');
+    }
+
     public function points(){
         return $this->reviews->avg('points');
     }

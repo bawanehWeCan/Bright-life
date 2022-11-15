@@ -265,10 +265,21 @@ class AuthController extends Controller
             $check = User::where('email', $request->email)
                 ->first();
 
-            if ($check) {
+            if ($check->id != Auth::user()->id) {
 
                 return $this->returnError('The email address is already used!');
             }
+        }else{
+            $user->update(
+                $request->only([
+                    'name',
+                    'image',
+                    'phone',
+                ])
+            );
+
+
+            return $this->returnData('user', UserResource::make(Auth::user()), 'successful');
         }
 
         $user->update(

@@ -19,7 +19,7 @@ class SupplierResource extends JsonResource
             'name'      => $this->name,
             'phone'     => $this->phone,
             'email'     => $this->email,
-            'avg_points'     => $this->points,
+            'avg_points'     => number_format((float)$this->points, 2, '.', ''),
             // 'reviews'     => $this->ratings,
             'image'     => (string)$this->image,
             'cover'     => (string)$this->cover,

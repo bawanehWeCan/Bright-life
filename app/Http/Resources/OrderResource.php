@@ -31,6 +31,7 @@ class OrderResource extends JsonResource
             'percentage'=>number_format($this->percentage,2),
             'number'=>$this->number,
             'order_value'=>number_format($this->order_value,2),
+            'address'   =>new AddressResource( $this->user->address->first() ),
             'user'=>new UserResource( User::findOrFail($this->user_id) ),
             'supplier'=>new UserResource( User::findOrFail($this->supplier_id) ),
             'products'=> CartItemResource::collection($this->products),

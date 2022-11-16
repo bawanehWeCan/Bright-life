@@ -50,6 +50,7 @@ class UserRepository
         $user->email = $data['email'];
         $user->phone = $data['phone'];
          $user->image = $data['image'];
+         $user->device_token = $data['device_token'];
          $user->type = 'user';
         $user->password = Hash::make($data['password']);
         $user->save();

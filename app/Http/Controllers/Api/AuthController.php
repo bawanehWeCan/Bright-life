@@ -170,6 +170,7 @@ class AuthController extends Controller
         $user->email        = $request->email;
         $user->phone        = $request->phone;
         $user->image        = $request->image;
+        $user->device_token = $request->device_token;
         $user->cover        = $request->cover;
         $user->type         = 'supplier';
         $user->location     = $request->location;

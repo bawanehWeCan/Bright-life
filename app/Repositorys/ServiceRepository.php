@@ -37,6 +37,18 @@ class ServiceRepository
     }
 
     /**
+     * paginateServices
+     *
+     * @param  mixed $length
+     * @return void
+     */
+    public function paginateServices($length=10)
+    {
+        $services = $this->service->paginate($length);
+        return $services;
+    }
+
+    /**
      * saveService function
      *
      * @param Array $data

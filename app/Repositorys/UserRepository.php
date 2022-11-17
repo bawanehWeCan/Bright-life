@@ -37,6 +37,18 @@ class UserRepository
     }
 
     /**
+     * paginateUsers
+     *
+     * @param  mixed $length
+     * @return void
+     */
+    public function paginateUsers($length = 10)
+    {
+        $users = $this->user->where('type', 'user')->paginate($length);
+        return $users;
+    }
+
+    /**
      * saveUser function
      *
      * @param Array $data

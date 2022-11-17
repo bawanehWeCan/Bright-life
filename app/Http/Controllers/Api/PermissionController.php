@@ -16,6 +16,13 @@ class PermissionController extends Controller
             'success' => 1,
         ]);
     }
+    public function pagination()
+    {
+        return response([
+            'permissions' => Permission::paginate(10),
+            'success' => 1,
+        ]);
+    }
 
 
     public function store(PermissionRequest $request)
@@ -41,7 +48,7 @@ class PermissionController extends Controller
             ]);
     }
 
-    
+
     public function show($id, Request $request)
     {
         $permission = Permission::with('roles')->find($id);

@@ -15,7 +15,7 @@ use App\Models\Size;
 use App\Repositories\Repository;
 use App\Repositorys\SizeRepository;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends ApiController
 {
@@ -37,13 +37,17 @@ class ProductController extends ApiController
      * @return void
      */
     public function save( ProductRequest $request ){
+
         return $this->store( $request );
     }
 
     public function store( $data )
     {
 
-
+        DB::beginTransaction();
+        $data['name'] = ['en'=>$data['name_en'],'ar'=>$data['name_ar']];
+        $data['content'] = ['en'=>$data['content_en'],'ar'=>$data['content_ar']];
+        $data['type'] = ['en'=>$data['type_en'],'ar'=>$data['type_ar']];
         $product = $this->repositry->save( $data );
 
         $groupRepo      = new Repository( app( Group::class ) );
@@ -51,33 +55,37 @@ class ProductController extends ApiController
 
         foreach ($data['groups'] as $group) {
             $group['product_id'] = $product->id;
+            $group['name'] = ['en'=>$group['name_en'],'ar'=>$group['name_ar']];
+            $group['type'] = ['en'=>$group['type_en'],'ar'=>$group['type_ar']];
             $model = $groupRepo->save( $group );
 
             // dd( $model );
 
             foreach ($group['items'] as $item) {
                 $item['group_id'] = $model['id'];
+                $item['name'] = ['en'=>$item['name_en'],'ar'=>$item['name_ar']];
                 $groupItemRepo->save($item);
             }
         }
-
+        DB::commit();
 
         if ($product) {
             return $this->returnData( 'data' , new $this->resource( $product ), __('Succesfully'));
+        }else{
+            DB::rollback();
+            return $this->returnError(__('Sorry! Failed to create !'));
         }
-
-        return $this->returnError(__('Sorry! Failed to create !'));
     }
 
-    // public function pagination( $lenght = 10 )
-    // {
+    public function pagination( $lenght = 10 )
+    {
 
-    //     $data =  $this->repositry->pagination( $lenght );
+        $data =  $this->repositry->pagination( $lenght );
 
-    //     return $this->returnData( 'data' , ProductResource::collection( $data ), __('Succesfully'));
+        return $this->returnData( 'data' , ProductResource::collection( $data ), __('Succesfully'));
 
 
-    // }
+    }
 
     public function lookfor(ProductRequest $request){
 

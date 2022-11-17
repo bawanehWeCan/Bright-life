@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('device_token')->after('type');
+            $table->string('device_token')->unique()->after('type');
         });
     }
 
@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('device_token')->unique();
+            $table->dropColumn('device_token');
         });
     }
 };

@@ -20,7 +20,7 @@ class CategoryResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'image'=>$this->image,
-            'type'=>$this->type,
+            'type'=>is_null( $this->type ) ? "A" : $this->type,
             'best'=>SupplierResource::collection($this->suppliers),
             'suppliers'=>SupplierResource::collection($this->suppliers),
         ];

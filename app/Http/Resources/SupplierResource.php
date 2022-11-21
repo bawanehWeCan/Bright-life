@@ -24,6 +24,7 @@ class SupplierResource extends JsonResource
             'image'     => (string)$this->image,
             'cover'     => (string)$this->cover,
             'location'     => (string)$this->location,
+            'type'=>'A',
             'description'     => (string)$this->description,
             'categories'     => CatResource::collection($this->categories),
             'products'     => ProductResource::collection($this->products),

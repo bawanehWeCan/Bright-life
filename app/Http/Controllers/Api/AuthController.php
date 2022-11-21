@@ -281,6 +281,7 @@ class AuthController extends Controller
                     'name',
                     'image',
                     'phone',
+                    'last_name'
                 ])
             );
 
@@ -294,6 +295,7 @@ class AuthController extends Controller
                 'email',
                 'image',
                 'phone',
+                'last_name'
             ])
         );
 

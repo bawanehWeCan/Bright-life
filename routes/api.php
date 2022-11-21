@@ -108,7 +108,7 @@ Route::post('products/search', [ProductController::class, 'lookfor']);
 
 
 
-Route::post('make-order', [OrderController::class, 'store']);
+
 // Route::get('make-order', [OrderController::class, 'store']);
 Route::post('update-order', [OrderController::class, 'update']);
 Route::get('view-order/{order}', [OrderController::class, 'view']);
@@ -170,7 +170,7 @@ Route::post('users/search', [UserController::class, 'search']);
 
 Route::middleware(['auth:api'])->group(function () {
 
-
+    Route::post('make-order', [OrderController::class, 'store']);
 
     // Address
     Route::get('address', [AddressController::class, 'pagination']);

@@ -50,7 +50,7 @@ class CategoryRepository
 
     public function allCategorys2()
     {
-        $categorys = $this->category->where('sub',0)->get();
+        $categorys = $this->category->get();
         return $categorys;
     }
 

@@ -91,7 +91,7 @@ class OrderController extends Controller
         $order->long = $request->long;
         $order->save();
 
-
+        
 
         return $this->returnData('data', new OrderResource($order), '');
     }

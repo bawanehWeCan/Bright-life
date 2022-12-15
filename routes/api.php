@@ -106,6 +106,9 @@ Route::get('products/{id}', [ProductController::class, 'view']);
 Route::get('products/delete/{id}', [ProductController::class, 'delete']);
 Route::post('products/search', [ProductController::class, 'lookfor']);
 
+Route::get('products/{id}/image', [ProductController::class, 'image']);
+
+
 
 
 

@@ -85,4 +85,16 @@ class ProductController extends ApiController
 
     }
 
+    public function image( $id, Request $request ){
+        $product = Product::find($id);
+
+        $product->image = $request->save;
+
+        $product->save();
+
+        return $this->returnData( 'data' , new $this->resource( $product ), __('Succesfully'));
+
+
+    }
+
 }

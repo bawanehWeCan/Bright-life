@@ -95,7 +95,9 @@ class ComposerStaticInit616415153d46cf31155399917f6be504
             'Symfony\\Component\\Cache\\' => 24,
             'Symfony\\Bridge\\PsrHttpMessage\\' => 30,
             'StellaMaris\\Clock\\' => 18,
+            'Spatie\\Translatable\\' => 20,
             'Spatie\\Permission\\' => 18,
+            'Spatie\\LaravelPackageTools\\' => 27,
             'Spatie\\LaravelIgnition\\' => 23,
             'Spatie\\Ignition\\' => 16,
             'Spatie\\FlareClient\\' => 19,
@@ -400,9 +402,17 @@ class ComposerStaticInit616415153d46cf31155399917f6be504
         array (
             0 => __DIR__ . '/..' . '/stella-maris/clock/src',
         ),
+        'Spatie\\Translatable\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-translatable/src',
+        ),
         'Spatie\\Permission\\' => 
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-permission/src',
+        ),
+        'Spatie\\LaravelPackageTools\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/spatie/laravel-package-tools/src',
         ),
         'Spatie\\LaravelIgnition\\' => 
         array (
@@ -851,6 +861,7 @@ class ComposerStaticInit616415153d46cf31155399917f6be504
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\ChangeLang' => __DIR__ . '/../..' . '/app/Http/Middleware/ChangeLang.php',
+        'App\\Http\\Middleware\\CheckApiLocale' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckApiLocale.php',
         'App\\Http\\Middleware\\CheckForMaintenanceMode' => __DIR__ . '/../..' . '/app/Http/Middleware/CheckForMaintenanceMode.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
@@ -6787,6 +6798,10 @@ class ComposerStaticInit616415153d46cf31155399917f6be504
         'Spatie\\LaravelIgnition\\Support\\StringComparator' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Support/StringComparator.php',
         'Spatie\\LaravelIgnition\\Views\\BladeSourceMapCompiler' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/BladeSourceMapCompiler.php',
         'Spatie\\LaravelIgnition\\Views\\ViewExceptionMapper' => __DIR__ . '/..' . '/spatie/laravel-ignition/src/Views/ViewExceptionMapper.php',
+        'Spatie\\LaravelPackageTools\\Commands\\InstallCommand' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Commands/InstallCommand.php',
+        'Spatie\\LaravelPackageTools\\Exceptions\\InvalidPackage' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Exceptions/InvalidPackage.php',
+        'Spatie\\LaravelPackageTools\\Package' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/Package.php',
+        'Spatie\\LaravelPackageTools\\PackageServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-package-tools/src/PackageServiceProvider.php',
         'Spatie\\Permission\\Commands\\CacheReset' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CacheReset.php',
         'Spatie\\Permission\\Commands\\CreatePermission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreatePermission.php',
         'Spatie\\Permission\\Commands\\CreateRole' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Commands/CreateRole.php',
@@ -6814,6 +6829,12 @@ class ComposerStaticInit616415153d46cf31155399917f6be504
         'Spatie\\Permission\\Traits\\HasRoles' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/HasRoles.php',
         'Spatie\\Permission\\Traits\\RefreshesPermissionCache' => __DIR__ . '/..' . '/spatie/laravel-permission/src/Traits/RefreshesPermissionCache.php',
         'Spatie\\Permission\\WildcardPermission' => __DIR__ . '/..' . '/spatie/laravel-permission/src/WildcardPermission.php',
+        'Spatie\\Translatable\\Events\\TranslationHasBeenSetEvent' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/Events/TranslationHasBeenSetEvent.php',
+        'Spatie\\Translatable\\Exceptions\\AttributeIsNotTranslatable' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/Exceptions/AttributeIsNotTranslatable.php',
+        'Spatie\\Translatable\\Facades\\Translatable' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/Facades/Translatable.php',
+        'Spatie\\Translatable\\HasTranslations' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/HasTranslations.php',
+        'Spatie\\Translatable\\Translatable' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/Translatable.php',
+        'Spatie\\Translatable\\TranslatableServiceProvider' => __DIR__ . '/..' . '/spatie/laravel-translatable/src/TranslatableServiceProvider.php',
         'StellaMaris\\Clock\\ClockInterface' => __DIR__ . '/..' . '/stella-maris/clock/src/ClockInterface.php',
         'Stringable' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Stringable.php',
         'Symfony\\Bridge\\PsrHttpMessage\\ArgumentValueResolver\\PsrServerRequestResolver' => __DIR__ . '/..' . '/symfony/psr-http-message-bridge/ArgumentValueResolver/PsrServerRequestResolver.php',

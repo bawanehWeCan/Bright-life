@@ -44,6 +44,17 @@ class UserController extends Controller
     }
 
     /**
+     * paginate
+     *
+     * @return void
+     */
+    public function pagination()
+    {
+        $users = $this->userRepositry->paginateUsers();
+        return $this->returnData('users', UserResource::collection($users), __('Succesfully'));
+    }
+
+    /**
      * store function
      *
      * @param UserRequest $request

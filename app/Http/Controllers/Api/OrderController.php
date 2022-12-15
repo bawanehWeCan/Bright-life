@@ -92,6 +92,7 @@ class OrderController extends Controller
         $order->save();
 
 
+
         $stuRef = app('firebase.firestore')->database()->collection('orders')->newDocument();
         $stuRef->set([
             'user_id' => 1,

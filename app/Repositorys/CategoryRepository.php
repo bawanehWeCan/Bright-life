@@ -36,6 +36,18 @@ class CategoryRepository
         return $categorys;
     }
 
+    /**
+     * categoryPagination
+     *
+     * @param  mixed $length
+     * @return void
+     */
+    public function categoryPagination($length = 10)
+    {
+        $categorys = $this->category->paginate($length);
+        return $categorys;
+    }
+
     public function allCategorys2()
     {
         $categorys = $this->category->where('sub',0)->get();
@@ -52,7 +64,7 @@ class CategoryRepository
     {
 
         $category = new $this->category;
-        $category->name = $data['name'];
+        $category->name = ['en'=>$data['name_en'],'ar'=>$data['name_ar']];
         $category->image = $data['image'];
         $category->save();
 

@@ -37,6 +37,18 @@ class UserRepository
     }
 
     /**
+     * paginateUsers
+     *
+     * @param  mixed $length
+     * @return void
+     */
+    public function paginateUsers($length = 10)
+    {
+        $users = $this->user->where('type', 'user')->paginate($length);
+        return $users;
+    }
+
+    /**
      * saveUser function
      *
      * @param Array $data
@@ -50,6 +62,7 @@ class UserRepository
         $user->email = $data['email'];
         $user->phone = $data['phone'];
          $user->image = $data['image'];
+         $user->device_token = $data['device_token'];
          $user->type = 'user';
         $user->password = Hash::make($data['password']);
         $user->save();

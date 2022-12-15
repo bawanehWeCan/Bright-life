@@ -45,6 +45,17 @@ class CategoryController extends Controller
     }
 
     /**
+     * paginate
+     *
+     * @return void
+     */
+    public function paginate()
+    {
+        $categories = $this->categoryRepositry->categoryPagination();
+        return $this->returnData('Categorys', CategoryResource::collection($categories), __('Succesfully'));
+    }
+
+    /**
      * store function
      *
      * @param CategoryRequest $request
@@ -52,6 +63,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+
         $category = $this->categoryRepositry->saveCategory($request);
 
         if ($category) {

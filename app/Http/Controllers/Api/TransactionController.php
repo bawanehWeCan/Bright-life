@@ -24,6 +24,11 @@ class TransactionController extends Controller
         $this->repositry =  new Repository($this->model);
     }
 
+    public function pagination($lenght=10){
+        $transactions = $this->model->paginate($lenght);
+        return $this->returnData( 'data' , $this->resource::collection( $transactions ), __('Succesfully'));
+    }
+
     public function transaction(TransactionRequest $request){
         try {
 

@@ -166,6 +166,13 @@ class AuthController extends Controller
         return $this->returnData('suppliers', SupplierResource::collection($users), 'succesfully');
     }
 
+    public function pagination($length = 10)
+    {
+        $users = User::where('type', 'supplier')->paginate($length);
+
+        return $this->returnData('suppliers', SupplierResource::collection($users), 'succesfully');
+    }
+
 
     public function storeSupplier(UserRequest $request)
     {
@@ -176,6 +183,7 @@ class AuthController extends Controller
         $user->email        = $request->email;
         $user->phone        = $request->phone;
         $user->image        = $request->image;
+        $user->device_token = $request->device_token;
         $user->cover        = $request->cover;
         $user->type         = 'supplier';
         $user->location     = $request->location;

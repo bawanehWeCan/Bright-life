@@ -68,6 +68,12 @@ class AuthController extends Controller
                 'user' => UserResource::make(Auth::user())
             ]]);
         }
+
+
+        return response(['status' => true, 'code' => 200, 'msg' => __('Log in success'), 'data' => [
+            'token' => $accessToken,
+            'user' => UserResource::make(Auth::user())
+        ]]);
     }
 
     // public function countries()
@@ -273,10 +279,22 @@ class AuthController extends Controller
             $check = User::where('email', $request->email)
                 ->first();
 
-            if ($check) {
+            if ($check->id != Auth::user()->id) {
 
                 return $this->returnError('The email address is already used!');
             }
+        }else{
+            $user->update(
+                $request->only([
+                    'name',
+                    'image',
+                    'phone',
+                    'last_name'
+                ])
+            );
+
+
+            return $this->returnData('user', UserResource::make(Auth::user()), 'successful');
         }
 
         $user->update(
@@ -285,12 +303,58 @@ class AuthController extends Controller
                 'email',
                 'image',
                 'phone',
+                'last_name'
             ])
         );
 
 
         return $this->returnData('user', UserResource::make(Auth::user()), 'successful');
     }
+
+
+    public function sociallogin(Request $request)
+    {
+
+        $user = User::where([
+            ['email', $request->email]
+        ])->first();
+
+        if ($user ) {
+
+            $accessToken = $user->createToken('authToken')->accessToken;
+
+            //$user->token = $request->token;
+            $user->save();
+
+            return response(['status' => true,'code' => 200,'msg' => 'success', 'data' => [
+                'token' => $accessToken,
+                'user' => $user
+            ]]);
+        }
+
+
+        $user = User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            'phone'=>$request->username,
+            'image'=>'',
+            'password' => Hash::make('1234'),
+        ]);
+
+
+        // assign new role to the user
+        // $role = $user->assignRole('Member');
+
+
+        $accessToken = $user->createToken('authToken')->accessToken;
+
+        return response(['status' => true,'code' => 200,'msg' => 'success', 'data' => [
+            'token' => $accessToken,
+            'user' => $user
+        ]]);
+
+    }
+
 
 
     public function logout(Request $request)
@@ -346,15 +410,21 @@ class AuthController extends Controller
     public function supprofile($id)
     {
         $user = User::find($id);
-        // $roles = $user->getRoleNames();
-        // $permission = $user->getAllPermissions();
-
-        // return response([
-        //     'user' => $user,
-        //     'success' => 1,
-        // ]);
-
 
         return $this->returnData('user', SupplierResource::make($user), 'successful');
+    }
+
+    public function bestSuppliers(){
+        $users = User::where('best',1)->get();
+
+        return $this->returnData('user', SupplierResource::collection($users), 'successful');
+
+    }
+
+
+    function bestRated(){
+        $users = User::where('type', 'supplier')->orderBy('points','desc')->get();
+
+        return $this->returnData('user', SupplierResource::collection($users), 'successful');
     }
 }

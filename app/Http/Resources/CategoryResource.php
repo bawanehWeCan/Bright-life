@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\User;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 
 class CategoryResource extends JsonResource
 {
@@ -18,8 +20,13 @@ class CategoryResource extends JsonResource
             'id'=>$this->id,
             'name'=>$this->name,
             'image'=>$this->image,
-            'type'=>$this->type,
+            'type'=>is_null( $this->type ) ? "A" : $this->type,
+            'best'=>SupplierResource::collection($this->suppliers),
             'suppliers'=>SupplierResource::collection($this->suppliers),
         ];
     }
 }
+
+
+
+

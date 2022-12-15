@@ -38,6 +38,8 @@ class CategoryController extends Controller
      */
     public function list()
     {
+        // $data = array();
+        // $data[]
         $categories = $this->categoryRepositry->allCategorys2();
         return $this->returnData('Categorys', CategoryResource::collection($categories), __('Succesfully'));
     }

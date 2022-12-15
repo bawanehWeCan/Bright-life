@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','image','phone','type',
+        'name', 'email', 'password','image','phone','type','last_name',
     ];
 
     /**
@@ -100,6 +100,14 @@ class User extends Authenticatable
 
     public function reviews(){
         return $this->hasMany(Review::class,'user_id');
+    }
+
+    public function ratings(){
+        return $this->hasMany(Review::class,'supplier_id');
+    }
+
+    public function GetPointsAttribute(){
+        return $this->ratings->avg('points');
     }
 
 }

@@ -40,6 +40,7 @@ use App\Http\Controllers\Api\SliderController;
 
 //Auth
 Route::post('login', [AuthController::class, 'login']);
+Route::post('sociallogin', [AuthController::class, 'sociallogin']);
 
 Route::post('/user-reg', [AuthController::class, 'store']);
 
@@ -61,6 +62,8 @@ Route::get('/suppliers-pagination', [AuthController::class, 'pagination']);
 Route::get('supplier/{id}', [AuthController::class, 'supprofile']);
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
 Route::post('suppliers/sub-category', [AuthController::class, 'addCategory3']);
+
+Route::get('best-suppliers', [AuthController::class, 'bestSuppliers']);
 
 
 Route::post('products/category', [AuthController::class, 'addCategory2']);
@@ -111,7 +114,7 @@ Route::post('products/search', [ProductController::class, 'lookfor']);
 
 
 
-Route::post('make-order', [OrderController::class, 'store']);
+
 // Route::get('make-order', [OrderController::class, 'store']);
 Route::post('update-order', [OrderController::class, 'update']);
 Route::get('view-order/{order}', [OrderController::class, 'view']);
@@ -176,7 +179,7 @@ Route::post('users/search', [UserController::class, 'search']);
 
 Route::middleware(['auth:api'])->group(function () {
 
-
+    Route::post('make-order', [OrderController::class, 'store']);
 
     // Address
     Route::get('address', [AddressController::class, 'pagination']);

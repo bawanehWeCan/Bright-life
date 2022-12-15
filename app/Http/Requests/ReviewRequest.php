@@ -28,7 +28,6 @@ class ReviewRequest extends FormRequest
             'title' => 'required',
             'content' => 'required  ',
             'points' => 'required',
-
             'supplier_id' => 'required  ',
             'status' => 'required',
 

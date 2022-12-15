@@ -25,7 +25,7 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
             $order = new Order();
-            $order->user_id = $request->user_id;
+            $order->user_id = Auth::user()->id;
             $order->supplier_id = $request->supplier_id;
             $order->note = !empty($request->note) ? $request->note : '';
             $order->type = $request->type;
@@ -91,7 +91,15 @@ class OrderController extends Controller
         $order->long = $request->long;
         $order->save();
 
-        
+
+
+        $stuRef = app('firebase.firestore')->database()->collection('orders')->newDocument();
+        $stuRef->set([
+            'user_id' => 1,
+
+        ]);
+
+
 
         return $this->returnData('data', new OrderResource($order), '');
     }

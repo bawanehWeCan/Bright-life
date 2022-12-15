@@ -39,6 +39,17 @@ class ServiceController extends Controller
         $categories = $this->serviceRepositry->allServices();
         return $this->returnData('Services', ServiceResource::collection($categories), __('Succesfully'));
     }
+    
+    /**
+     * pagination
+     *
+     * @return void
+     */
+    public function pagination()
+    {
+        $categories = $this->serviceRepositry->paginateServices();
+        return $this->returnData('Services', ServiceResource::collection($categories), __('Succesfully'));
+    }
 
     /**
      * store function

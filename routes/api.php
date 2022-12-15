@@ -57,6 +57,8 @@ Route::post('change-password', [AuthController::class, 'changePassword']);
 //supp
 Route::post('/user-supplier', [AuthController::class, 'storeSupplier']);
 Route::get('/suppliers', [AuthController::class, 'list']);
+Route::get('/suppliers-pagination', [AuthController::class, 'pagination']);
+Route::get('/suppliers-pagination', [AuthController::class, 'pagination']);
 Route::get('supplier/{id}', [AuthController::class, 'supprofile']);
 Route::post('suppliers/category', [AuthController::class, 'addCategory']);
 Route::post('suppliers/sub-category', [AuthController::class, 'addCategory3']);
@@ -69,6 +71,7 @@ Route::post('products/category', [AuthController::class, 'addCategory2']);
 
 //only those have manage_user permission will get access
 Route::get('categories', [CategoryController::class, 'list']);
+Route::get('categories-pagination', [CategoryController::class, 'paginate']);
 Route::post('category-create', [CategoryController::class, 'store']);
 Route::get('category/{id}', [CategoryController::class, 'profile']);
 Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
@@ -78,6 +81,7 @@ Route::get('category/delete/{id}', [CategoryController::class, 'delete']);
 
 //only those have manage_user permission will get access
 Route::get('services', [ServiceController::class, 'list']);
+Route::get('services-pagination', [ServiceController::class, 'pagination']);
 Route::post('service-create', [ServiceController::class, 'store']);
 Route::get('services/{id}', [ServiceController::class, 'profile']);
 Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
@@ -90,6 +94,7 @@ Route::get('services/delete/{id}', [ServiceController::class, 'delete']);
 Route::get('reviews', [ReviewController::class, 'test']);
 
 Route::get('reviews', [ReviewController::class, 'list']);
+Route::get('reviews-pagination', [ReviewController::class, 'pagination']);
 
 
 Route::get('review/{id}', [ReviewController::class, 'view']);
@@ -101,6 +106,7 @@ Route::post('review/delete/{id}', [ReviewController::class, 'delete']);
 /**new code */
 //only those have manage_user permission will get access
 Route::get('products', [ProductController::class, 'pagination']);
+Route::get('products-pagination', [ProductController::class, 'pagination']);
 Route::post('products-create', [ProductController::class, 'save']);
 Route::get('products/{id}', [ProductController::class, 'view']);
 Route::get('products/delete/{id}', [ProductController::class, 'delete']);
@@ -123,18 +129,21 @@ Route::post('suppliers/search/{value}', [OrderController::class, 'search']);
 
 //only those have manage_user permission will get access
 Route::get('promo-code', [PromoCodeController::class, 'list']);
+Route::get('promo-code-pagination', [PromoCodeController::class, 'pagination']);
 Route::post('promo-code-create', [PromoCodeController::class, 'save']);
 Route::get('promo-code/{id}', [PromoCodeController::class, 'view']);
 Route::get('promo-code/delete/{id}', [PromoCodeController::class, 'delete']);
 Route::post('add-code-to-order', [PromoCodeController::class, 'addCodeOrder']);
 
 Route::get('faq', [FaqController::class, 'list']);
+Route::get('faq-pagination', [FaqController::class, 'pagination']);
 Route::post('faq-create', [FaqController::class, 'save']);
 Route::get('faq/{id}', [FaqController::class, 'view']);
 Route::get('faq/delete/{id}', [FaqController::class, 'delete']);
 
 
 Route::get('sliders', [SliderController::class, 'list']);
+Route::get('sliders-pagination', [SliderController::class, 'pagination']);
 Route::post('slider-create', [SliderController::class, 'save']);
 Route::get('slider/{id}', [SliderController::class, 'view']);
 Route::get('slider/delete/{id}', [SliderController::class, 'delete']);
@@ -205,6 +214,7 @@ Route::middleware(['auth:api'])->group(function () {
     //only those have manage_user permission will get access
     Route::get('/users', [UserController::class, 'list']);
     Route::post('/user-create', [UserController::class, 'store']);
+    Route::get('/user-pagination', [UserController::class, 'pagination']);
     Route::get('/user/{id}', [UserController::class, 'profile']);
     Route::get('/user/delete/{id}', [UserController::class, 'delete']);
     Route::post('/user/change-role/{id}', [UserController::class, 'changeRole']);
@@ -212,6 +222,7 @@ Route::middleware(['auth:api'])->group(function () {
     //only those have manage_role permission will get access
     Route::group(['middleware' => 'can:manage_role|manage_user'], function () {
         Route::get('/roles', [RolesController::class, 'list']);
+        Route::get('/roles-pagination', [RolesController::class, 'pagination']);
         Route::post('/role/create', [RolesController::class, 'store']);
         Route::get('/role/{id}', [RolesController::class, 'show']);
         Route::get('/role/delete/{id}', [RolesController::class, 'delete']);
@@ -222,6 +233,7 @@ Route::middleware(['auth:api'])->group(function () {
     //only those have manage_permission permission will get access
     Route::group(['middleware' => 'can:manage_permission|manage_user'], function () {
         Route::get('/permissions', [PermissionController::class, 'list']);
+        Route::get('/permissions-pagination', [PermissionController::class, 'pagination']);
         Route::post('/permission/create', [PermissionController::class, 'store']);
         Route::get('/permission/{id}', [PermissionController::class, 'show']);
         Route::get('/permission/delete/{id}', [PermissionController::class, 'delete']);
@@ -229,9 +241,11 @@ Route::middleware(['auth:api'])->group(function () {
 
 
     Route::get('wallet', [WalletController::class, 'list']);
+    Route::get('wallet-pagination', [WalletController::class, 'pagination']);
     Route::post('wallet-create', [WalletController::class, 'save']);
     Route::get('get-wallet', [WalletController::class, 'get']);
     Route::get('wallet/delete/{id}', [WalletController::class, 'delete']);
 
     Route::post('transaction', [TransactionController::class, 'transaction']);
+    Route::get('transaction-pagination', [TransactionController::class, 'pagination']);
 });

@@ -16,6 +16,13 @@ class RolesController extends Controller
             'success' => 1,
         ]);
     }
+    public function pagination()
+    {
+        return response([
+            'roles' => Role::paginate(10),
+            'success' => 1,
+        ]);
+    }
 
 
     public function store(RoleRequest $request)
@@ -45,7 +52,7 @@ class RolesController extends Controller
             ]);
     }
 
-    
+
     public function show($id, Request $request)
     {
         $role = Role::with('permissions')->find($id);
@@ -87,7 +94,7 @@ class RolesController extends Controller
         $request->validate([
             'permissions' => 'required',
         ]);
-        
+
         // update role permissions
         $role = Role::find($id);
         if ($role) {

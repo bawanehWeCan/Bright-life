@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Group extends Model
 {
-    use HasFactory;
+    use HasFactory,HasTranslations;
 
     public $fillable = ['name','type','product_id'];
+    public $translatable = ['name','type'];
 
 
     public function items(){

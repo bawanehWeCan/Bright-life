@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory,HasTranslations;
     protected $guarded = [];
 
-    public $translatable = ['name','content','type'];
+    public $translatable = ['name','content'];
 
 
     public function setImageAttribute($value){
